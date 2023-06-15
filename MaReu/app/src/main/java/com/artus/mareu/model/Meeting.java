@@ -1,6 +1,10 @@
 package com.artus.mareu.model;
 
+
+import org.threeten.bp.LocalDateTime;
+
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,32 +17,27 @@ public class Meeting {
     private String title;
 
     /** Date*/
-    private String dateMeeting;
-
-    /** Hour*/
-    private String hourMeeting;
+    private LocalDateTime dateTimeMeeting;
 
     /** Location*/
     private String location;
 
     /** Participants of the Meeting*/
-    private List<String> participantsList = new ArrayList<>();
+    private List<String> participantsList;
 
     /**
      * Constructor
      * @param id
      * @param title
-     * @param dateMeeting
-     * @param hourMeeting
+     * @param dateTimeMeeting
      * @param location
      * @param participantsList
      */
 
-    public Meeting(long id, String title, String dateMeeting, String hourMeeting, String location, List<String> participantsList) {
+    public Meeting(long id, String title, LocalDateTime dateTimeMeeting, String location, List<String> participantsList) {
         this.id = id;
         this.title = title;
-        this.dateMeeting = dateMeeting;
-        this.hourMeeting = hourMeeting;
+        this.dateTimeMeeting = dateTimeMeeting;
         this.location = location;
         this.participantsList = participantsList;
     }
@@ -59,20 +58,12 @@ public class Meeting {
         this.title = title;
     }
 
-    public String getDateMeeting() {
-        return dateMeeting;
+    public LocalDateTime getDateTimeMeeting() {
+        return dateTimeMeeting;
     }
 
-    public void setDateMeeting(String dateMeeting) {
-        this.dateMeeting = dateMeeting;
-    }
-
-    public String getHourMeeting() {
-        return hourMeeting;
-    }
-
-    public void setHourMeeting(String hourMeeting) {
-        this.hourMeeting = hourMeeting;
+    public void setDateTimeMeeting(LocalDateTime dateTimeMeeting) {
+        this.dateTimeMeeting = dateTimeMeeting;
     }
 
     public String getLocation() {

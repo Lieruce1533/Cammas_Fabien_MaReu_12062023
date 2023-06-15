@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.artus.mareu.ui.meetings_list.ListMeetingActivity">
+    tools:context="com.artus.mareu.ui.meetings_list.MainActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
