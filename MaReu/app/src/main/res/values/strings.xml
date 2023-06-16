@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MaRéu</string>
     <string name="salle">Salle :</string>
+    <string name="quand">à :</string>
 </resources>
