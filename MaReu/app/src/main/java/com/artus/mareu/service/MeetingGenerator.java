@@ -5,15 +5,19 @@ import com.artus.mareu.model.Meeting;
 import org.threeten.bp.LocalDateTime;
 
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.List;
+import java.util.Set;
 
 public abstract class MeetingGenerator {
 
 
-
+    /**
+     * A list of fake Meetings to populate our Application.
+     */
     public static List<Meeting> PLANIFIED_MEETINGS = Arrays.asList(
             new Meeting(1, "Implémentation de pascal pour des Turbo modules",
                     LocalDateTime.of(2023, 7, 12, 10, 15),"Cupcake", new ArrayList<>(Arrays.asList("michel@caramail.fr", "francois@lycos.fr"))),
@@ -33,10 +37,13 @@ public abstract class MeetingGenerator {
                     LocalDateTime.of(2023, 7,16, 10, 0),"Jelly Bean",new ArrayList<>(Arrays.asList("patrick@caramail.fr", "gontrand@lycos.fr")))
     );
 
+    /**
+     * The list of Meeting Rooms we dispose of.
+     */
     public static List<String> DROIDNA_MEETING_ROOMS = Arrays.asList("Cupcake", "Donut", "Eclair", "Froyo", "Gingerbread", "Honeycomb",
             "Ice Cream Sandwich", "Jelly Bean", "Kit Kat", "Lollipop");
 
-    static List<Meeting> generateMeetings() {
-        return new ArrayList<>(PLANIFIED_MEETINGS);
-    }
+    static List<Meeting> generateMeetings() {return new ArrayList<>(PLANIFIED_MEETINGS);}
+
+    static List<String> generateMeetingRooms() {return DROIDNA_MEETING_ROOMS;}
 }
