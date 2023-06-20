@@ -2,4 +2,6 @@
     <string name="app_name">MaRéu</string>
     <string name="salle">Salle :</string>
     <string name="quand">à :</string>
+    <string name="participants">Participants :</string>
+    <string name="bin">image of a bin for delete purpose</string>
 </resources>
