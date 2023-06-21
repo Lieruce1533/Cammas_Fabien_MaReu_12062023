@@ -32,6 +32,7 @@
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/item_list_meeting_room_date_layout"
+        app:layout_constraintStart_toEndOf="@id/item_list_meeting_title"
         android:src="@drawable/ic_delete_white_24dp"
         android:contentDescription="@string/bin">
 
@@ -52,8 +53,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="24dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/item_list_meeting_salle"

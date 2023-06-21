@@ -16,9 +16,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-        AndroidThreeTen.init(this);
+
+            binding = ActivityMainBinding.inflate(getLayoutInflater());
+            View view = binding.getRoot();
+            setContentView(view);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .setReorderingAllowed(true)
+                    .add(R.id.fragment_container_view, MeetingsFragment.class, null)
+                    .commit();
+            AndroidThreeTen.init(this);
+        }
     }
 }
