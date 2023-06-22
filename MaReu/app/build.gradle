@@ -52,7 +52,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1"
-
+    //support java8 utils for api below 24.
     implementation 'net.sourceforge.streamsupport:streamsupport:1.7.4'
 
 
