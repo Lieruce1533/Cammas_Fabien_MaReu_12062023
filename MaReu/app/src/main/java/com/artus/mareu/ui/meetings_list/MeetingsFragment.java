@@ -45,7 +45,7 @@ public class MeetingsFragment extends Fragment {
         //je charge ma liste pour tester
         mMeetingList = mMareuApiService.getMeetings();
         //# bientôt elle sera fourni par mon viewModel
-        mRecyclerView = (RecyclerView) binding.recyclerViewMeetings;
+        mRecyclerView = binding.recyclerViewMeetings;
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         mAdapter = new MeetingAdapter(mMeetingList);
         // Set CustomAdapter as the adapter for RecyclerView.

@@ -3,19 +3,38 @@ package com.artus.mareu.repository;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.service.MeetingApiService;
 
+import org.threeten.bp.LocalDate;
+
 import java.util.List;
+
+import java8.util.Optional;
+
 
 public class MareuRepository {
 
     private final MeetingApiService apiService;
+    private List<Meeting> mMeetings;
 
     public MareuRepository(MeetingApiService apiService) {
         this.apiService = apiService;
     }
 
-    public List<Meeting> getMeetings(){
-        return apiService.getMeetings();
+    public List<Meeting> getMeetings(String room, LocalDate date){
+        Optional<String> location = Optional.ofNullable(room);
+        Optional<LocalDate> theDate = Optional.ofNullable(date);
+        if (location.isPresent()) {
+
+        } else if (theDate.isPresent()) {
+
+            //mMeetings= apiService.getMeetings().
+
+        } else { mMeetings = apiService.getMeetings();}
+
+        return mMeetings;
+
     }
+
+
 
     public List<String> getMeetingRooms() {
         return apiService.getMeetingRooms();
