@@ -25,7 +25,7 @@ public class MareuRepository {
         Optional<LocalDate> theDate = Optional.ofNullable(date);
         if (theRoom.isPresent()) {
 
-            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getLocation().equals(theRoom)).collect(Collectors.toList());
+            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getLocation().equals(theRoom.toString())).collect(Collectors.toList());
 
         } else if (theDate.isPresent()) {
 
