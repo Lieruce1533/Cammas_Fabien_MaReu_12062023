@@ -1,16 +1,14 @@
-package com.artus.mareu.service;
+package com.artus.mareu.DataSource;
 
 import com.artus.mareu.model.Meeting;
 
 import org.threeten.bp.LocalDateTime;
 
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import java.util.List;
-import java.util.Set;
 
 public abstract class MeetingGenerator {
 

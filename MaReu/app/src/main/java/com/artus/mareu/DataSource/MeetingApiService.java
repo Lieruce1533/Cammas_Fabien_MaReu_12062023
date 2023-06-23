@@ -1,4 +1,4 @@
-package com.artus.mareu.service;
+package com.artus.mareu.DataSource;
 
 import com.artus.mareu.model.Meeting;
 

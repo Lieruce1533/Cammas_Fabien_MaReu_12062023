@@ -1,5 +1,6 @@
 package com.artus.mareu.ui.meetings_list;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -15,17 +16,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.artus.mareu.model.Meeting;
-import com.artus.mareu.service.MareuApiService;
-import com.example.mareu.R;
+import com.artus.mareu.DataSource.MareuApiService;
 import com.example.mareu.databinding.FragmentMeetingsBinding;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MeetingsFragment extends Fragment {
 
     private MeetingsViewModel mViewModel;
-
-    private final MareuApiService mMareuApiService = new MareuApiService();
     private FragmentMeetingsBinding binding;
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
@@ -42,12 +41,19 @@ public class MeetingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentMeetingsBinding.inflate(inflater, container, false);
         View view =binding.getRoot();
-        //je charge ma liste pour tester
-        mMeetingList = mMareuApiService.getMeetings();
-        //# bientôt elle sera fourni par mon viewModel
+
+        //connection to viewModel
+        mViewModel = new ViewModelProvider(this).get(MeetingsViewModel.class);
+        mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), new Observer<List<Meeting>>() {
+            @Override
+            public void onChanged(List<Meeting> meetings) {
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+
         mRecyclerView = binding.recyclerViewMeetings;
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new MeetingAdapter(mMeetingList);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+        mAdapter = new MeetingAdapter(mViewModel.getLiveListMeeting().getValue());
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -57,14 +63,6 @@ public class MeetingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(MeetingsViewModel.class);
-        // TODO: Use the ViewModel
-        // I must set mMeetingList here...
     }
 
 }

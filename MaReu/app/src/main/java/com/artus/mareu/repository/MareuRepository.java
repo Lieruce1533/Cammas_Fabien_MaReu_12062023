@@ -1,7 +1,7 @@
 package com.artus.mareu.repository;
 
 import com.artus.mareu.model.Meeting;
-import com.artus.mareu.service.MeetingApiService;
+import com.artus.mareu.DataSource.MeetingApiService;
 
 import org.threeten.bp.LocalDate;
 
@@ -36,8 +36,6 @@ public class MareuRepository {
         return mMeetings;
 
     }
-
-
 
     public List<String> getMeetingRooms() {
         return apiService.getMeetingRooms();
