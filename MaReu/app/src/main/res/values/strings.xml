@@ -4,4 +4,6 @@
     <string name="quand">à :</string>
     <string name="participants">Participants :</string>
     <string name="bin">image of a bin for delete purpose</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
