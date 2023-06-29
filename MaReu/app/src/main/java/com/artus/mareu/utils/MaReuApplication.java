@@ -8,10 +8,10 @@ import com.artus.mareu.repository.MareuRepository;
 
 public class MaReuApplication extends Application {
 
-    private MareuRepository mareuRepository;
+    private static MareuRepository mareuRepository;
 
 
-    public MareuRepository getMareuRepository() {
+    public static MareuRepository getMareuRepository() {
         if(mareuRepository == null) mareuRepository = RepositoryInjection.createMareuRepository();
         return mareuRepository;
     }

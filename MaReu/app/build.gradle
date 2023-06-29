@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mareu'
+    namespace 'com.artus.mareu'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.mareu"
+        applicationId "com.artus.mareu"
         minSdk 21
         targetSdk 33
         versionCode 1

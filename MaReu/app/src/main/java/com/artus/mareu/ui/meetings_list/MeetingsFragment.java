@@ -15,9 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.artus.mareu.di.RepositoryInjection;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.DataSource.MareuApiService;
-import com.example.mareu.databinding.FragmentMeetingsBinding;
+import com.artus.mareu.databinding.FragmentMeetingsBinding;
+import com.artus.mareu.repository.MareuRepository;
+import com.artus.mareu.utils.MaReuViewModelFactory;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,6 +28,8 @@ import java.util.Objects;
 public class MeetingsFragment extends Fragment {
 
     private MeetingsViewModel mViewModel;
+    private MaReuViewModelFactory mMaReuViewModelFactory;
+    private MareuRepository mMareuRepository;
     private FragmentMeetingsBinding binding;
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
@@ -40,25 +45,39 @@ public class MeetingsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentMeetingsBinding.inflate(inflater, container, false);
-        View view =binding.getRoot();
+        View view = binding.getRoot();
 
         //connection to viewModel
-        mViewModel = new ViewModelProvider(this).get(MeetingsViewModel.class);
-        mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), new Observer<List<Meeting>>() {
+        //
+        mMareuRepository = RepositoryInjection.createMareuRepository();
+        mMaReuViewModelFactory = new MaReuViewModelFactory(mMareuRepository);
+        mViewModel = new ViewModelProvider(this,mMaReuViewModelFactory).get(MeetingsViewModel.class);
+
+        /**
+          from android developer guides and it is not even right... I don't understand the purpose of those guides...
+        mViewModel = new ViewModelProvider(this, ViewModelProvider.Factory.from(MeetingsViewModel.initializer)).get(MeetingsViewModel.class);
+         */
+        //my observer
+        final Observer<List<Meeting>> listObserver = new Observer<List<Meeting>>() {
             @Override
             public void onChanged(List<Meeting> meetings) {
-                mAdapter.notifyDataSetChanged();
+
+                mAdapter = new MeetingAdapter(meetings);
+                mRecyclerView.setAdapter(mAdapter);
+
             }
-        });
+        };
+
+        mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), listObserver);
 
         mRecyclerView = binding.recyclerViewMeetings;
         mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new MeetingAdapter(mViewModel.getLiveListMeeting().getValue());
-        // Set CustomAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mAdapter);
-        // END_INCLUDE(initializeRecyclerView)
+
+
         return view;
     }
+
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

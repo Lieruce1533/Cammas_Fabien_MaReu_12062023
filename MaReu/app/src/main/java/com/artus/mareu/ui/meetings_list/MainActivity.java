@@ -5,8 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.mareu.R;
-import com.example.mareu.databinding.ActivityMainBinding;
+import com.artus.mareu.R;
+import com.artus.mareu.databinding.ActivityMainBinding;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 public class MainActivity extends AppCompatActivity {

@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.artus.mareu.model.Meeting;
-import com.example.mareu.databinding.ActivityMainBinding;
-import com.example.mareu.databinding.ItemviewMeetingBinding;
+import com.artus.mareu.databinding.ActivityMainBinding;
+import com.artus.mareu.databinding.ItemviewMeetingBinding;
 
 import java.util.List;
 
