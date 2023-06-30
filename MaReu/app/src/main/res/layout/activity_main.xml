@@ -11,9 +11,23 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/activity_main_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
         app:titleTextColor="@android:color/white"
         android:background="@color/ColorToolbar">
+
+        <TextView
+            android:id="@+id/menu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            tools:text="What's on the screen"/>
+
+        <ExpandableListView
+            android:id="@+id/menu_list_rooms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            />
+
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -22,6 +36,6 @@
 
         android:id="@+id/fragment_container_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

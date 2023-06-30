@@ -31,10 +31,14 @@ public class MeetingsViewModel extends ViewModel {
     }
 
     public void loadLiveListMeeting(String room, LocalDate date) {
-
+            //assignation de mMareuRepository dans le fragment pour le fonctionnement de la factory
             List<Meeting> listMeeting = mMareuRepository.getMeetings(room, date);
             liveListMeeting.setValue(listMeeting);
 
+    }
+
+    public void deleteThisMeeting(Meeting meeting){
+        mMareuRepository.deleteMeeting(meeting);
     }
 
 
