@@ -23,10 +23,13 @@
             android:textColor="@color/white"
             tools:text="What's on the screen"/>
 
-        <ExpandableListView
-            android:id="@+id/menu_list_rooms"
+        <EditText
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"            />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:hint="Room">
+
+        </EditText>
 
 
     </androidx.appcompat.widget.Toolbar>

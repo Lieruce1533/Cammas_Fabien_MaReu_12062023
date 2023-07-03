@@ -29,9 +29,7 @@ public class MareuApiService implements MeetingApiService {
      * {@inheritDoc}
      */
     @Override
-    public void deleteMeeting(Meeting meeting) {
-        meetings.remove(meeting);
-    }
+    public void deleteMeeting(Meeting meeting) { meetings.remove(meeting);}
 
     /**
      * {@inheritDoc}

@@ -1,5 +1,7 @@
 package com.artus.mareu.ui.meetings_list;
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +26,7 @@ import com.artus.mareu.databinding.FragmentMeetingsBinding;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.utils.MaReuViewModelFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.List;
@@ -52,7 +56,7 @@ public class MeetingsFragment extends Fragment {
         //connection / creation du viewModel
         mMareuRepository = RepositoryInjection.createMareuRepository();
         mMaReuViewModelFactory = new MaReuViewModelFactory(mMareuRepository);
-        mViewModel = new ViewModelProvider(this,mMaReuViewModelFactory).get(MeetingsViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(MeetingsViewModel.class);
         /**
           from android developer guides and it is not even right... I don't understand the purpose of those guides...
         mViewModel = new ViewModelProvider(this, ViewModelProvider.Factory.from(MeetingsViewModel.initializer)).get(MeetingsViewModel.class);
@@ -71,9 +75,27 @@ public class MeetingsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
     @Subscribe
     public void onDeleteMeeting (DeleteMeetingEvent event){
         mViewModel.deleteThisMeeting(event.mMeeting);
+        Log.d(TAG, "onDeleteMeeting: is triggered in fragment ");
     }
 
 

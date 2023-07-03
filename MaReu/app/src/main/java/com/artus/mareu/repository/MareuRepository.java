@@ -43,8 +43,7 @@ public class MareuRepository {
         return apiService.getMeetingRooms();
     }
 
-    public void deleteMeeting(Meeting meeting) {
-        apiService.deleteMeeting(meeting);
+    public void deleteMeeting(Meeting meeting) { apiService.deleteMeeting(meeting);
     }
 
     public void createMeeting(Meeting meeting) {

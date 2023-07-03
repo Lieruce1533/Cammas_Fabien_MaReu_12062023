@@ -1,7 +1,10 @@
 package com.artus.mareu.ui.meetings_list;
 
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -37,8 +40,12 @@ public class MeetingsViewModel extends ViewModel {
 
     }
 
+
     public void deleteThisMeeting(Meeting meeting){
-        mMareuRepository.deleteMeeting(meeting);
+       mMareuRepository.deleteMeeting(meeting);
+        Log.d(TAG, "deleteThisMeeting: is triggered in viewModel");
+       loadLiveListMeeting(room,date);
+       Log.d(TAG, "updating liveListMeeting is happening");
     }
 
 

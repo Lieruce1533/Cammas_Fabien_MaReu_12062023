@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         Toolbar toolbar = binding.activityMainToolbar;
+        //setSupportActionBar(toolbar);
         TextView title = binding.menuTitle;
-        ExpandableListView roomsList = binding.menuListRooms;
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .setReorderingAllowed(true)
