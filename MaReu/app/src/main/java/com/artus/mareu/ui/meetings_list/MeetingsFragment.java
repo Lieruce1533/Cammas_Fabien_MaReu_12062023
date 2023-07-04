@@ -35,12 +35,12 @@ import java.util.Objects;
 public class MeetingsFragment extends Fragment {
 
     private MeetingsViewModel mViewModel;
-    private MaReuViewModelFactory mMaReuViewModelFactory;
-    private MareuRepository mMareuRepository;
+
     private FragmentMeetingsBinding binding;
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
     private List<Meeting> mMeetingList;
+    private MaReuViewModelFactory mMaReuViewModelFactory;
 
 
     public static MeetingsFragment newInstance() {
@@ -53,14 +53,11 @@ public class MeetingsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentMeetingsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
-        //connection / creation du viewModel
-        mMareuRepository = RepositoryInjection.createMareuRepository();
-        mMaReuViewModelFactory = new MaReuViewModelFactory(mMareuRepository);
+        //connection / creation du viewModel (shared with the main activity)
+
+        mMaReuViewModelFactory = ((MainActivity) requireActivity()).getMyFactory();
         mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(MeetingsViewModel.class);
-        /**
-          from android developer guides and it is not even right... I don't understand the purpose of those guides...
-        mViewModel = new ViewModelProvider(this, ViewModelProvider.Factory.from(MeetingsViewModel.initializer)).get(MeetingsViewModel.class);
-         */
+
         //my observer
         final Observer<List<Meeting>> listObserver = new Observer<List<Meeting>>() {
             @Override
