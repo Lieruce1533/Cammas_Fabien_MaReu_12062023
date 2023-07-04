@@ -4,4 +4,17 @@
     <string name="quand">à :</string>
     <string name="participants">Participants :</string>
     <string name="bin">image of a bin for delete purpose</string>
+    <string name="filters">Filters</string>
+    <string name="filter_by_date">filter by date</string>
+    <string name="filter_by_room">filter by room</string>
+    <string name="ice_cream_sandwich">Ice Cream Sandwich</string>
+    <string name="jelly_bean">Jelly Bean</string>
+    <string name="kit_kat">Kit Kat</string>
+    <string name="lollipop">Lollipop</string>
+    <string name="honeycomb">Honeycomb</string>
+    <string name="gingerbread">Gingerbread</string>
+    <string name="froyo">Froyo</string>
+    <string name="eclair">Eclair</string>
+    <string name="donut">Donut</string>
+    <string name="cupcake">Cupcake</string>
 </resources>
