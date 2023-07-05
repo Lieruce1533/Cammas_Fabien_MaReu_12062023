@@ -22,12 +22,16 @@ import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.utils.MaReuViewModelFactory;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
+import org.threeten.bp.LocalDate;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
-    private ViewModel mViewModel;
+    private MeetingsViewModel mViewModel;
     private MaReuViewModelFactory mMaReuViewModelFactory;
     private MareuRepository mMareuRepository;
+    private String mRoom;
+    private LocalDate mDate;
 
 
     @Override
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
         AndroidThreeTen.init(this);
     }
 
+    /**
+     *
+     * @return the instance of the factory
+     */
     public MaReuViewModelFactory getMyFactory(){
         return mMaReuViewModelFactory;
     }
@@ -69,36 +77,45 @@ public class MainActivity extends AppCompatActivity {
             //TODO dialog date picker -> mDate + call mViewModel.loadLiveListMeeting(mDate)
              return true;
         }else if (item.getItemId() == R.id.sub_item_1) {
-            String room = item.getTitle().toString();
-            Toast.makeText(this, room, Toast.LENGTH_SHORT).show();
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_2) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
+
         }else if (item.getItemId() == R.id.sub_item_3) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_4) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_5) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_6) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_7) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_8) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_9) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else if (item.getItemId() == R.id.sub_item_10) {
-            //TODO call mViewModel.loadLiveListMeeting(item.getTitle().toString())
+            mRoom = item.getTitle().toString();
+            mViewModel.loadLiveListMeeting(mRoom,mDate);
             return true;
         }else
         return super.onOptionsItemSelected(item);

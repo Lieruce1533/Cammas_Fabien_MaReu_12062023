@@ -40,14 +40,19 @@ public class MeetingsViewModel extends ViewModel {
 
     }
 
-
+    /**
+     *
+     * @param meeting
+     */
     public void deleteThisMeeting(Meeting meeting){
        mMareuRepository.deleteMeeting(meeting);
         Log.d(TAG, "deleteThisMeeting: is triggered in viewModel");
        loadLiveListMeeting(room,date);
        Log.d(TAG, "updating liveListMeeting is happening");
     }
-
+    public void launchFilter(String room, LocalDate date){
+        loadLiveListMeeting(room,date);
+    }
 
 
     // TODO: Implement the ViewModel
