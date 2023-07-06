@@ -3,13 +3,11 @@ package com.artus.mareu.ui.meetings_list;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
-import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
-import com.artus.mareu.di.RepositoryInjection;
+
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.repository.MareuRepository;
 import org.threeten.bp.LocalDate;
@@ -36,6 +34,7 @@ public class MeetingsViewModel extends ViewModel {
     public void loadLiveListMeeting(String room, LocalDate date) {
             //assignation de mMareuRepository dans le fragment pour le fonctionnement de la factory
             List<Meeting> listMeeting = mMareuRepository.getMeetings(room, date);
+        Log.d(TAG, "loadLiveListMeeting: is triggered in viewModel");
             liveListMeeting.setValue(listMeeting);
 
     }
@@ -50,9 +49,7 @@ public class MeetingsViewModel extends ViewModel {
        loadLiveListMeeting(room,date);
        Log.d(TAG, "updating liveListMeeting is happening");
     }
-    public void launchFilter(String room, LocalDate date){
-        loadLiveListMeeting(room,date);
-    }
+
 
 
     // TODO: Implement the ViewModel

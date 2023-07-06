@@ -1,8 +1,13 @@
 package com.artus.mareu.repository;
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
+import android.util.Log;
+
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.DataSource.MeetingApiService;
 
+import org.jetbrains.annotations.Nullable;
 import org.threeten.bp.LocalDate;
 
 import java8.util.stream.Collectors;
@@ -22,18 +27,15 @@ public class MareuRepository {
 
     public List<Meeting> getMeetings(String room, LocalDate date){
 
-        Optional<String> theRoom = Optional.ofNullable(room);
-        Optional<LocalDate> theDate = Optional.ofNullable(date);
-
-        if (theRoom.isPresent()) {
-
-            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getLocation().equals(theRoom.toString())).collect(Collectors.toList());
-
-        } else if (theDate.isPresent()) {
-
-            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getDateTimeMeeting().toLocalDate().equals(theDate)).collect(Collectors.toList());
-
+        if (room !=null) {
+            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getLocation().equals(room)).collect(Collectors.toList());
+            Log.d(TAG, "Filtering by room start in repository");
+        } else if (date != null) {
+            mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getDateTimeMeeting().toLocalDate().equals(date)).collect(Collectors.toList());
+            Log.d(TAG, "Filtering by date start in repository");
         } else { mMeetings = apiService.getMeetings();}
+
+        Log.d(TAG, "getMeetings: is triggered in repository");
 
         return mMeetings;
 

@@ -3,17 +3,16 @@ package com.artus.mareu.utils;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.viewmodel.CreationExtras;
 
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.ui.meetings_list.MeetingsViewModel;
 
-public class MaReuViewModelFactory implements ViewModelProvider.Factory {
+public class MareuViewModelFactory implements ViewModelProvider.Factory {
 
     private final MareuRepository mMareuRepository;
 
-    public MaReuViewModelFactory(MareuRepository mareuRepository) {
-        mMareuRepository = mareuRepository;
+    public MareuViewModelFactory(MareuRepository mareuRepository) {
+        this.mMareuRepository = mareuRepository;
     }
 
 

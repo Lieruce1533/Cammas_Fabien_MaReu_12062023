@@ -1,35 +1,41 @@
 package com.artus.mareu.ui.meetings_list;
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModel;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.NavigationUI;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.DatePicker;
 
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.ActivityMainBinding;
-import com.artus.mareu.databinding.ToolbarBinding;
-import com.artus.mareu.di.RepositoryInjection;
+import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.repository.MareuRepository;
-import com.artus.mareu.utils.MaReuViewModelFactory;
+import com.artus.mareu.utils.MareuViewModelFactory;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private ActivityMainBinding binding;
     private MeetingsViewModel mViewModel;
-    private MaReuViewModelFactory mMaReuViewModelFactory;
+    private MareuViewModelFactory mMaReuViewModelFactory;
     private MareuRepository mMareuRepository;
+    private List<String> mMeetingRooms;
+    private final String LIST_KEY="meetings room";
     private String mRoom;
     private LocalDate mDate;
 
@@ -42,8 +48,9 @@ public class MainActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         setSupportActionBar(binding.toolbar.getRoot());
-        mMareuRepository = RepositoryInjection.createMareuRepository();
-        mMaReuViewModelFactory = new MaReuViewModelFactory(mMareuRepository);
+        mMareuRepository = MareuInjection.createMareuRepository();
+        mMeetingRooms = mMareuRepository.getMeetingRooms();
+        mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
         mViewModel = new ViewModelProvider(this,mMaReuViewModelFactory).get(MeetingsViewModel.class);
 
 
@@ -60,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
      *
      * @return the instance of the factory
      */
-    public MaReuViewModelFactory getMyFactory(){
+    public MareuViewModelFactory getMyFactory(){
         return mMaReuViewModelFactory;
     }
 
@@ -70,56 +77,33 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_toolbar, menu);
         return true;
     }
-
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        mDate = LocalDate.of(year, month, dayOfMonth);
+        mViewModel.loadLiveListMeeting(mRoom,mDate);
+    }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.filter_by_Date){
-            //TODO dialog date picker -> mDate + call mViewModel.loadLiveListMeeting(mDate)
-             return true;
-        }else if (item.getItemId() == R.id.sub_item_1) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
+            DialogFragment datePicker = new datePickerFragment();
+            datePicker.show(getSupportFragmentManager(), "date picker");
             return true;
-        }else if (item.getItemId() == R.id.sub_item_2) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
+        }else if (item.getItemId() == R.id.filter_by_room) {
+            Bundle bundle = new Bundle();
+            bundle.putStringArrayList(LIST_KEY, (ArrayList<String>) mMeetingRooms);
+            DialogFragment roomPicker = new RoomPickerFragment();
+            roomPicker.setArguments(bundle);
+            roomPicker.show(getSupportFragmentManager(), "room picker");
+            Log.d(TAG, "filtering begins with launching dialog room picker: is triggered in Main Activity");
             return true;
-
-        }else if (item.getItemId() == R.id.sub_item_3) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_4) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_5) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_6) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_7) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_8) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_9) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
-            return true;
-        }else if (item.getItemId() == R.id.sub_item_10) {
-            mRoom = item.getTitle().toString();
-            mViewModel.loadLiveListMeeting(mRoom,mDate);
+        }else if(item.getItemId() == R.id.item_remove_filter){
+            mViewModel.loadLiveListMeeting(mRoom, mDate);
             return true;
         }else
         return super.onOptionsItemSelected(item);
 
     };
+
+
 
 }

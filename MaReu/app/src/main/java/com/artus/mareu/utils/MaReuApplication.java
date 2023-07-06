@@ -3,7 +3,7 @@ package com.artus.mareu.utils;
 
 import android.app.Application;
 
-import com.artus.mareu.di.RepositoryInjection;
+import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.repository.MareuRepository;
 
 public class MaReuApplication extends Application {
@@ -12,7 +12,7 @@ public class MaReuApplication extends Application {
 
 
     public static MareuRepository getMareuRepository() {
-        if(mareuRepository == null) mareuRepository = RepositoryInjection.createMareuRepository();
+        if(mareuRepository == null) mareuRepository = MareuInjection.createMareuRepository();
         return mareuRepository;
     }
 

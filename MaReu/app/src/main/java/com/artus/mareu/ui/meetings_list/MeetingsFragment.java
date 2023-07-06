@@ -18,19 +18,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.artus.mareu.di.RepositoryInjection;
 import com.artus.mareu.events.DeleteMeetingEvent;
+import com.artus.mareu.events.FilterByRoomEvent;
 import com.artus.mareu.model.Meeting;
-import com.artus.mareu.DataSource.MareuApiService;
 import com.artus.mareu.databinding.FragmentMeetingsBinding;
-import com.artus.mareu.repository.MareuRepository;
-import com.artus.mareu.utils.MaReuViewModelFactory;
+import com.artus.mareu.utils.MareuViewModelFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.threeten.bp.LocalDate;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MeetingsFragment extends Fragment {
 
@@ -40,7 +38,8 @@ public class MeetingsFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private MeetingAdapter mAdapter;
     private List<Meeting> mMeetingList;
-    private MaReuViewModelFactory mMaReuViewModelFactory;
+    private LocalDate mDate;
+    private MareuViewModelFactory mMaReuViewModelFactory;
 
 
     public static MeetingsFragment newInstance() {
@@ -93,6 +92,11 @@ public class MeetingsFragment extends Fragment {
     public void onDeleteMeeting (DeleteMeetingEvent event){
         mViewModel.deleteThisMeeting(event.mMeeting);
         Log.d(TAG, "onDeleteMeeting: is triggered in fragment ");
+    }
+
+    @Subscribe
+    public void onFilterMeetingRoom(FilterByRoomEvent event){
+        mViewModel.loadLiveListMeeting(event.room, mDate);
     }
 
 

@@ -43,5 +43,5 @@ public abstract class MeetingGenerator {
 
     static List<Meeting> generateMeetings() {return new ArrayList<>(PLANIFIED_MEETINGS);}
 
-    static List<String> generateMeetingRooms() {return DROIDNA_MEETING_ROOMS;}
+    static List<String> generateMeetingRooms() {return new ArrayList<>(DROIDNA_MEETING_ROOMS);}
 }
