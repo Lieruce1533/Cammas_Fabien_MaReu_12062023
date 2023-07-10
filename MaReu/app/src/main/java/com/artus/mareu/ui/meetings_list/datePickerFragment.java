@@ -17,7 +17,7 @@ public class datePickerFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         LocalDate dateNow = LocalDate.now();
         int year = dateNow.getYear();
-        int month = dateNow.getMonthValue();
+        int month = dateNow.getMonthValue()-1;
         int day = dateNow.getDayOfMonth();
         return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
 

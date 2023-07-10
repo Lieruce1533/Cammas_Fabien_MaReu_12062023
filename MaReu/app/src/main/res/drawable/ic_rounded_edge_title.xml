@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid
-        android:color="@color/colorClearGrey">
+        android:color="@color/colorBackItems">
     </solid>
     <stroke
         android:width="0dp"
-        android:color="@color/colorPrimaryDark">
+        android:color="@color/white">
     </stroke>
     <padding
         android:bottom="4dp"

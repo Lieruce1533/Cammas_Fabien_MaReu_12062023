@@ -5,9 +5,12 @@ import static org.greenrobot.eventbus.EventBus.TAG;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
+import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -21,6 +24,7 @@ import com.artus.mareu.databinding.ActivityMainBinding;
 import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.utils.MareuViewModelFactory;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.threeten.bp.LocalDate;
@@ -38,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     private final String LIST_KEY="meetings room";
     private String mRoom;
     private LocalDate mDate;
+    FloatingActionButton fab;
+
 
 
     @Override
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     .commit();
         }
         AndroidThreeTen.init(this);
+        configureFab();
     }
 
     /**
@@ -79,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        mDate = LocalDate.of(year, month, dayOfMonth);
+        mDate = LocalDate.of(year, month+1, dayOfMonth);
         mViewModel.loadLiveListMeeting(mRoom,mDate);
     }
     @Override
@@ -97,12 +104,28 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             Log.d(TAG, "filtering begins with launching dialog room picker: is triggered in Main Activity");
             return true;
         }else if(item.getItemId() == R.id.item_remove_filter){
+            mRoom = null;
+            mDate = null;
             mViewModel.loadLiveListMeeting(mRoom, mDate);
             return true;
         }else
         return super.onOptionsItemSelected(item);
 
     };
+    private void configureFab(){
+        fab = binding.createMeetingFab;
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: start new fragment");
+                //Fragment fragment = CreateMeetingFragment.newInstance();
+                getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container_view, CreateMeetingFragment.class, null)
+                    //.addToBackStack(null)
+                    .commit();
+            }
+        });
+    }
 
 
 
