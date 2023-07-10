@@ -19,7 +19,7 @@ public class datePickerFragment extends DialogFragment {
         int year = dateNow.getYear();
         int month = dateNow.getMonthValue()-1;
         int day = dateNow.getDayOfMonth();
-        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
+        return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getParentFragment(), year, month, day);
 
 
     }
