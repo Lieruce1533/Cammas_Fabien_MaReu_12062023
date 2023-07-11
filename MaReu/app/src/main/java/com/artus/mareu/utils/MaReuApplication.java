@@ -13,6 +13,7 @@ public class MaReuApplication extends Application {
 
     public static MareuRepository getMareuRepository() {
         if(mareuRepository == null) mareuRepository = MareuInjection.createMareuRepository();
+
         return mareuRepository;
     }
 

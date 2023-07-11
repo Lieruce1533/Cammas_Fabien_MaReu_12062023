@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity  {
                 getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container_view, CreateMeetingFragment.class, null)
                     .commit();
+                fab.setVisibility(View.GONE);
             }
         });
     }

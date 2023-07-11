@@ -1,49 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <EditText
-        android:id="@+id/editTextText"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/header_title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/ColorToolbar"
-        android:ems="10"
-        android:fontFamily="sans-serif-smallcaps"
-        android:inputType="text"
-        android:padding="4dp"
+        android:minHeight="40dp"
+        android:background="@drawable/rectangle_round_bg"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:padding="8dp"
         android:text="New Meeting"
         android:textAlignment="center"
         android:textStyle="bold"
+        android:fontFamily="sans-serif-smallcaps"
+        android:textSize="20sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutTitle"
+
         android:layout_width="match_parent"
-        android:minWidth="200dp"
         android:layout_height="wrap_content"
-        android:minHeight="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="30dp"
         android:hint="Title"
-        app:hintTextAppearance="?attr/textAppearanceBodySmall"
+        android:minWidth="150dp"
+        android:minHeight="40dp"
+        android:padding="4dp"
         android:textColorHint="@color/ColorToolbar"
-        app:boxStrokeColor="@color/ColorToolbar"
-        app:boxStrokeWidth="2dp"
-        app:shapeAppearance="?attr/shapeAppearanceSmallComponent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
-        android:textAppearance="?attr/textAppearanceBodyLarge">
+        app:hintTextAppearance="?attr/textAppearanceBodyMedium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_title">
 
         <com.google.android.material.textfield.TextInputEditText
 
-            android:layout_width="match_parent"
+
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?attr/textAppearanceBodyLarge"
+            android:background="@drawable/edit_text_bg"
+            android:minHeight="40dp"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:textColor="@color/ColorToolbar"
 
             />
 
@@ -53,44 +62,74 @@
         android:id="@+id/editTextDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="5"
         android:inputType="date"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:textColorHint="@color/ColorToolbar"
         android:hint="Date"
+        android:padding="4dp"
+        android:textAlignment="center"
+        android:textColor="@color/ColorToolbar"
+        android:background="@drawable/edit_text_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle" />
+
+    <ImageView
+        android:id="@+id/image_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/editTextDate"
+        app:layout_constraintTop_toTopOf="@id/editTextDate"
+        app:srcCompat="@drawable/baseline_calendar_month_24" />
 
     <EditText
         android:id="@+id/editTextTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="time"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/edit_text_bg"
+        android:ems="4"
         android:hint="Time"
+        android:inputType="time"
+        android:padding="4dp"
+        android:textAlignment="center"
+        android:textColor="@color/ColorToolbar"
+        android:textColorHint="@color/ColorToolbar"
+        app:layout_constraintEnd_toEndOf="@id/editTextDate"
         app:layout_constraintStart_toStartOf="@+id/editTextDate"
         app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutRoom"
+    <ImageView
+        android:id="@+id/image_time"
         android:layout_width="wrap_content"
-        android:minWidth="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:hint="Room"
-        android:textColorHint="@color/colorClearGrey"
-        app:hintEnabled="true"
-        app:hintTextColor="@color/colorClearGrey"
+        android:layout_marginStart="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime">
+        app:layout_constraintStart_toEndOf="@+id/editTextTime"
+        app:layout_constraintTop_toTopOf="@+id/editTextTime"
+        app:srcCompat="@drawable/baseline_access_time_28" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+    <Spinner
+        android:id="@+id/spinnerRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:minWidth="150dp"
+        android:popupBackground="@drawable/edit_text_bg"
+        android:popupElevation="6dp"
+        android:background="@drawable/edit_text_bg"
+        android:dropDownWidth="match_parent"
+        android:dropDownVerticalOffset="@dimen/spinner_dropdown_offset"
+        app:layout_constraintStart_toStartOf="@id/editTextTime"
+        app:layout_constraintTop_toBottomOf="@id/editTextTime">
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </Spinner>
+
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutParticipants"
@@ -99,16 +138,32 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutRoom"
-        android:layout_marginTop="50dp"
-        android:hint="Participants" >
+        app:layout_constraintTop_toBottomOf="@+id/spinnerRoom"
+        android:layout_marginTop="40dp"
+        android:hint="Participants"
+        android:textColorHint="@color/ColorToolbar"
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
+            android:inputType="textMultiLine"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:background="@drawable/edit_text_bg"
             />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:backgroundTint="@color/ColorToolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutParticipants" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
