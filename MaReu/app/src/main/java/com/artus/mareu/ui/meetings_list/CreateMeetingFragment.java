@@ -1,7 +1,6 @@
 package com.artus.mareu.ui.meetings_list;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,9 +24,12 @@ import android.widget.TimePicker;
 
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
-import com.artus.mareu.databinding.FragmentMeetingsBinding;
 import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.repository.MareuRepository;
+import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
+import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
+import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
+import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
 
 import org.threeten.bp.LocalDate;
@@ -67,14 +70,16 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
          * for the purpose of testing I populate with the full list of meeting Rooms.
          */
         mMareuRepository = MareuInjection.createMareuRepository();
-        mRoom = mMareuRepository.getMeetingRooms();
+        mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
+        mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(CreateMeetingViewModel.class);
+
         mSpinner.setOnItemSelectedListener(this);
+        mRoom = mMareuRepository.getMeetingRooms();
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(requireContext(), R.layout.spinner_list, mRoom);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
         mSpinner.setAdapter(spinnerAdapter);
         setDatePicker();
         setTimePicker();
-
         return view;
     }
     public void setDatePicker(){
@@ -107,6 +112,17 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         mTime = LocalTime.of(hourOfDay,minute);
         mEditTime.setText(mTime.toString());
+    }
+
+    public LocalDateTime fetchDateTime(){
+        mDate = LocalDate.parse(mEditDate.getText().toString()) ;
+        mTime = LocalTime.parse(mEditTime.getText().toString());
+        mDateTime = LocalDateTime.of(mDate,mTime);
+
+        return mDateTime;
+    }
+    public void UpdateSpinnerList(){
+        mRoom = mViewModel.fetchFilteredRooms(fetchDateTime(),mViewModel.fetchMeetings(null, null));
     }
 
     @Override

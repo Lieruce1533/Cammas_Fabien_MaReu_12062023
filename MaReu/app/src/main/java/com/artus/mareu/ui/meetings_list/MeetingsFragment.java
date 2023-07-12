@@ -2,7 +2,6 @@ package com.artus.mareu.ui.meetings_list;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
@@ -33,6 +32,9 @@ import com.artus.mareu.events.FilterByRoomEvent;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.databinding.FragmentMeetingsBinding;
 import com.artus.mareu.repository.MareuRepository;
+import com.artus.mareu.ui.meetings_list.Pickers.RoomPickerFragment;
+import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
+import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
 
 import org.greenrobot.eventbus.EventBus;

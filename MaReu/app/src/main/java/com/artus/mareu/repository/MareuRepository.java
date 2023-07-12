@@ -33,13 +33,13 @@ public class MareuRepository {
 
         if (room !=null) {
             mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getLocation().equals(room)).collect(Collectors.toList());
-            Log.d(TAG, "Filtering by room start in repository");
+
         } else if (date != null) {
             mMeetings = StreamSupport.stream(apiService.getMeetings()).filter(p -> p.getDateTimeMeeting().toLocalDate().equals(date)).collect(Collectors.toList());
-            Log.d(TAG, "Filtering by date start in repository");
+
         } else { mMeetings = apiService.getMeetings();}
 
-        Log.d(TAG, "getMeetings: is triggered in repository");
+
 
         return mMeetings;
 

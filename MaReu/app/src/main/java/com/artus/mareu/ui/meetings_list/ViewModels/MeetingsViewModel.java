@@ -1,4 +1,4 @@
-package com.artus.mareu.ui.meetings_list;
+package com.artus.mareu.ui.meetings_list.ViewModels;
 
 
 import static org.greenrobot.eventbus.EventBus.TAG;
