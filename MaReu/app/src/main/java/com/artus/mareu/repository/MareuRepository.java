@@ -56,15 +56,19 @@ public class MareuRepository {
         apiService.createMeeting(meeting);
     }
 
+    /**
+     * returning a list of meeting rooms free for given localDateTime
+     */
     public List<String> getAvailableRooms(LocalDateTime dateTime, List<Meeting> mMeetings ){
         List<String> fullRoomList = getMeetingRooms();
         List<String> occupiedRooms = new ArrayList<>();
         for (Meeting meeting : mMeetings) {
             LocalDateTime startDateTime = meeting.getDateTimeMeeting();
-            LocalDateTime endDateTime = startDateTime.plusHours(1); // Assuming each meeting lasts for 1 hour
+            LocalDateTime endDateTime = startDateTime.plusHours(1);
+            // Assuming each meeting lasts for 1 hour and addition a gap of 5 min between 2 meetings
 
             // Check if the provided dateTime overlaps with the existing meeting
-            if (dateTime.isAfter(startDateTime) && dateTime.isBefore(endDateTime)) {
+            if (dateTime.isBefore(endDateTime.plusMinutes(5)) && dateTime.isAfter(startDateTime)){
                 occupiedRooms.add(meeting.getLocation());
             }
         }

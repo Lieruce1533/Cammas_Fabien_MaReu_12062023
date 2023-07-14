@@ -32,10 +32,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(view);
         setSupportActionBar(binding.toolbar.getRoot());
 
-        /**
-        mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
-        mViewModel = new ViewModelProvider(this,mMaReuViewModelFactory).get(MeetingsViewModel.class);
-*/
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()

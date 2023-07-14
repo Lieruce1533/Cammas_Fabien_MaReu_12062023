@@ -10,12 +10,5 @@ public class MareuInjection {
         return new MareuRepository(new MareuApiService());
     }
 }
-    /**
-     *
-     * public static MareuViewModelFactory createFactory(){
-     *
-     *         return new MareuViewModelFactory(mMareuRepository);
-     *     }
-     * }
-     */
+
 
