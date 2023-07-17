@@ -3,52 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="16dp"
+    tools:context=".ui.meetings_list.MainActivity">
 
-    <TextView
-        android:id="@+id/header_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="40dp"
-        android:background="@drawable/rectangle_round_bg"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:padding="8dp"
-        android:text="New Meeting"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-smallcaps"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutTitle"
-
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="30dp"
-        android:hint="Title"
-        android:minWidth="150dp"
         android:minHeight="40dp"
         android:padding="4dp"
+        app:hintTextColor="@color/ColorToolbar"
         android:textColorHint="@color/ColorToolbar"
-        app:hintTextAppearance="?attr/textAppearanceBodyMedium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_title">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
 
 
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edit_text_bg"
+            android:hint="Title"
+            android:minWidth="300dp"
             android:minHeight="40dp"
             android:padding="4dp"
             android:textAlignment="center"
@@ -65,24 +47,24 @@
         android:ems="5"
         android:inputType="date"
         android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
         android:textColorHint="@color/ColorToolbar"
         android:hint="Date"
         android:padding="4dp"
         android:textAlignment="center"
         android:textColor="@color/ColorToolbar"
         android:background="@drawable/edit_text_bg"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutTitle" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle" />
 
     <ImageView
         android:id="@+id/image_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextDate"
+        app:layout_constraintEnd_toEndOf="@id/spinnerRoom"
+        app:layout_constraintStart_toEndOf="@id/editTextDate"
         app:layout_constraintTop_toTopOf="@id/editTextDate"
         app:srcCompat="@drawable/baseline_calendar_month_24" />
 
@@ -92,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/edit_text_bg"
-        android:ems="4"
+        android:ems="5"
         android:hint="Time"
         android:inputType="time"
         android:padding="4dp"
@@ -100,22 +82,22 @@
         android:textColor="@color/ColorToolbar"
         android:textColorHint="@color/ColorToolbar"
         app:layout_constraintEnd_toEndOf="@id/editTextDate"
-        app:layout_constraintStart_toStartOf="@+id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintStart_toStartOf="@id/editTextDate"
+        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
 
     <ImageView
         android:id="@+id/image_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextTime"
-        app:layout_constraintTop_toTopOf="@+id/editTextTime"
+        app:layout_constraintEnd_toEndOf="@id/image_date"
+        app:layout_constraintStart_toStartOf="@id/image_date"
+        app:layout_constraintTop_toTopOf="@id/editTextTime"
         app:srcCompat="@drawable/baseline_access_time_28" />
 
     <Spinner
         android:id="@+id/spinnerRoom"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:minWidth="150dp"
@@ -124,7 +106,7 @@
         android:background="@drawable/edit_text_bg"
         android:dropDownWidth="match_parent"
         android:dropDownVerticalOffset="@dimen/spinner_dropdown_offset"
-        app:layout_constraintStart_toStartOf="@id/editTextTime"
+        app:layout_constraintStart_toStartOf="@id/editTextDate"
         app:layout_constraintTop_toBottomOf="@id/editTextTime">
 
     </Spinner>
@@ -134,19 +116,23 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutParticipants"
         android:layout_width="wrap_content"
-        android:minWidth="200dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerRoom"
+        app:layout_constraintTop_toBottomOf="@id/spinnerRoom"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
         android:layout_marginTop="40dp"
-        android:hint="Participants"
+        android:gravity="center"
+        app:hintTextColor="@color/ColorToolbar"
         android:textColorHint="@color/ColorToolbar"
         >
 
         <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="300dp"
+            android:hint="Participants"
             android:inputType="textMultiLine"
             android:padding="4dp"
             android:textAlignment="center"
@@ -163,7 +149,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayoutParticipants" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayoutParticipants" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

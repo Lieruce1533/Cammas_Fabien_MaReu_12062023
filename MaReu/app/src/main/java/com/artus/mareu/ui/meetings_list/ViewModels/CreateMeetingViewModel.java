@@ -1,5 +1,6 @@
 package com.artus.mareu.ui.meetings_list.ViewModels;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.artus.mareu.model.Meeting;
@@ -20,9 +21,13 @@ public class CreateMeetingViewModel extends ViewModel {
     private List<String> availableRooms;
 
     private List<Meeting> mMeetings;
+    private MutableLiveData<Boolean> visible = new MutableLiveData<>();
 
     public CreateMeetingViewModel(MareuRepository mareuRepository) {
         mMareuRepository = mareuRepository;
+    }
+    public MutableLiveData<Boolean> displayRoomSpinner(){
+        return visible;
     }
 
     public List<Meeting> fetchMeetings(String room, LocalDate date){

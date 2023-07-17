@@ -1,5 +1,6 @@
 package com.artus.mareu.ui.meetings_list;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
@@ -53,6 +54,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private EditText mEditTime;
     private ImageView mClock;
     private ImageView mCalendar;
+    private Toolbar toolbar;
 
 
 
@@ -82,6 +84,14 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         setTimePicker();
         return view;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
+        toolbar.setTitle("New Meeting");
+    }
+
+
     public void setDatePicker(){
         mEditDate = binding.editTextDate;
         mCalendar = binding.imageDate;
@@ -93,7 +103,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             }
         });
     }
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mDate = LocalDate.of(year, month+1, dayOfMonth);
         mEditDate.setText(mDate.toString());
     }

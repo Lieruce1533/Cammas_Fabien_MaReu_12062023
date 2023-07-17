@@ -68,7 +68,7 @@ public class MareuRepository {
             // Assuming each meeting lasts for 1 hour and addition a gap of 5 min between 2 meetings
 
             // Check if the provided dateTime overlaps with the existing meeting
-            if (dateTime.isBefore(endDateTime.plusMinutes(5)) && dateTime.isAfter(startDateTime)){
+            if (dateTime.isBefore(endDateTime.plusMinutes(5)) && dateTime.isAfter(startDateTime.minusMinutes(65))){
                 occupiedRooms.add(meeting.getLocation());
             }
         }
