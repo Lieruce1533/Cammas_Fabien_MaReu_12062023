@@ -1,5 +1,9 @@
 package com.artus.mareu.ui.meetings_list.ViewModels;
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -21,14 +25,31 @@ public class CreateMeetingViewModel extends ViewModel {
     private List<String> availableRooms;
 
     private List<Meeting> mMeetings;
-    private MutableLiveData<Boolean> visible = new MutableLiveData<>();
+    private MutableLiveData<Boolean> visible =new MutableLiveData<>();
 
     public CreateMeetingViewModel(MareuRepository mareuRepository) {
         mMareuRepository = mareuRepository;
     }
-    public MutableLiveData<Boolean> displayRoomSpinner(){
+
+    public MutableLiveData<Boolean> getVisible(){
+        displayRoomSpinner(false);
         return visible;
+    };
+
+    /**
+     * changing the value of our boolean live data
+     * @return
+     */
+    public void displayRoomSpinner(boolean display){
+        if (display) {
+            visible.setValue(true);
+            Log.d(TAG, "displayRoomSpinner: is running ");
+        } else {
+            visible.setValue(false);
+        }
     }
+
+
 
     public List<Meeting> fetchMeetings(String room, LocalDate date){
         mMeetings = mMareuRepository.getMeetings(room,date);
@@ -37,6 +58,7 @@ public class CreateMeetingViewModel extends ViewModel {
 
     public List<String> fetchFilteredRooms(LocalDateTime mDateTime, List<Meeting> meetings){
         availableRooms = mMareuRepository.getAvailableRooms(mDateTime,meetings);
+        displayRoomSpinner(true);
         return availableRooms;
     }
     // TODO: Implement the ViewModel

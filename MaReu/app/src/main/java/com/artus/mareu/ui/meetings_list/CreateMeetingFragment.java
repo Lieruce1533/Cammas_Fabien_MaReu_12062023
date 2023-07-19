@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -65,6 +66,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private ImageView mClock;
     private ImageView mCalendar;
     private Toolbar toolbar;
+    private ArrayAdapter<String> spinnerAdapter;
 
 
 
@@ -85,17 +87,36 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
         mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(CreateMeetingViewModel.class);
 
+        final Observer<Boolean> visibilityObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean ){
+                    mSpinner.setVisibility(View.VISIBLE);
+                    spinnerAdapter.clear();
+                    spinnerAdapter.addAll(mRoom);
+                    spinnerAdapter.notifyDataSetChanged();
+                }else {
+                    mSpinner.setVisibility(View.GONE);
+
+                }
+            }
+        };
+        mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
         mRoom = mMareuRepository.getMeetingRooms();
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter(requireContext(), R.layout.spinner_list, mRoom);
+        spinnerAdapter = new ArrayAdapter(requireContext(), R.layout.spinner_list, mRoom);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
         mSpinner.setAdapter(spinnerAdapter);
+
         setDatePicker();
         setTimePicker();
 
         return view;
     }
 
+    /**
+     * management of the menu and the toolbar.
+     */
     private void setMenuProvider() {
         MenuHost menuHost = requireActivity();
         menuHost.addMenuProvider(new MenuProvider() {
@@ -103,7 +124,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar_create, menu);
             }
-
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.item_nav_back) {
@@ -111,7 +131,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
                     Log.d(TAG, "onMenuItemSelected: fragment manager created");
                     fm.popBackStackImmediate();
                     Log.d(TAG, "onMenuItemSelected: fm pop fired");
-
                     return true;
                 }
                 return true;
@@ -128,7 +147,9 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         setMenuProvider();
     }
 
-
+    /**
+     * management of the date Input
+     */
     public void setDatePicker(){
         mEditDate = binding.editTextDate;
         mCalendar = binding.imageDate;
@@ -143,7 +164,13 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mDate = LocalDate.of(year, month+1, dayOfMonth);
         mEditDate.setText(mDate.toString());
+            Log.d(TAG, "onDateSet: ");
+        //checkFilledInputs();
+
     }
+    /**
+     * management of the time input
+     */
     public void setTimePicker(){
         mEditTime = binding.editTextTime;
         mClock = binding.imageTime;
@@ -159,17 +186,39 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         mTime = LocalTime.of(hourOfDay,minute);
         mEditTime.setText(mTime.toString());
+        checkFilledInputs();
+    }
+    /**
+     * control if a date and a time have been set by the user
+     */
+
+    public void checkFilledInputs() {
+        if ((mEditDate.getText() != null) && (mEditTime.getText() != null)) {
+            Log.d(TAG, "checkFilledInputs: launched");
+            UpdateSpinnerList();
+        }
+
     }
 
-    public LocalDateTime fetchDateTime(){
-        mDate = LocalDate.parse(mEditDate.getText().toString()) ;
-        mTime = LocalTime.parse(mEditTime.getText().toString());
-        mDateTime = LocalDateTime.of(mDate,mTime);
+    /**
+     * A way to combine the date input and the time input
+     * @return a LocalDateTime object
+     */
+    public LocalDateTime fetchDateTime() {
 
+        mDate = LocalDate.parse(mEditDate.getText().toString());
+        mTime = LocalTime.parse(mEditTime.getText().toString());
+        mDateTime = LocalDateTime.of(mDate, mTime);
         return mDateTime;
     }
+
+    /**
+     * updating the spinner list to propose only the rooms available at a specific LocalDateTime
+     */
     public void UpdateSpinnerList(){
         mRoom = mViewModel.fetchFilteredRooms(fetchDateTime(),mViewModel.fetchMeetings(null, null));
+        Log.d(TAG, "UpdateSpinnerList: is fired ");
+
     }
 
     @Override
