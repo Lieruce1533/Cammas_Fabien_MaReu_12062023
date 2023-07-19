@@ -16,7 +16,7 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 public class MainActivity extends AppCompatActivity  {
 
     private ActivityMainBinding binding;
-    FloatingActionButton fab;
+    private FloatingActionButton fab;
     public ActivityMainBinding getBinding() {
         return binding;
     }
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: start new fragment");
                 getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container_view, CreateMeetingFragment.class, null)
+                    .replace(R.id.fragment_container_view, CreateMeetingFragment.class, null).addToBackStack("meetings")
                     .commit();
                 fab.setVisibility(View.GONE);
             }

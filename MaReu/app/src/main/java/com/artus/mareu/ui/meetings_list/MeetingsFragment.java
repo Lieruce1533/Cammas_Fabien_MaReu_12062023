@@ -3,11 +3,18 @@ package com.artus.mareu.ui.meetings_list;
 import static org.greenrobot.eventbus.EventBus.TAG;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +43,7 @@ import com.artus.mareu.ui.meetings_list.Pickers.RoomPickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
 import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,6 +65,8 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
     private String mRoom;
     private List<String> mMeetingRooms;
     private MareuViewModelFactory mMaReuViewModelFactory;
+    private MenuHost menuHost;
+    private FloatingActionButton fab;
     private Toolbar toolbar;
 
 
@@ -86,22 +96,49 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), listObserver);
         mRecyclerView = binding.recyclerViewMeetings;
         mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
+        ((MainActivity) requireActivity()).setSupportActionBar(toolbar);
+        setHomeMenuProvider();
 
-
-        setHasOptionsMenu(true);
         return view;
+    }
+
+    private void setHomeMenuProvider(){
+        menuHost = requireActivity();
+        menuHost.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.menu_toolbar, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.filter_by_Date){
+                    DialogFragment datePicker = new datePickerFragment();
+                    datePicker.show(getChildFragmentManager(), "date picker");
+                    return true;
+                }else if (menuItem.getItemId() == R.id.filter_by_room) {
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList(LIST_KEY, (ArrayList<String>) mMeetingRooms);
+                    DialogFragment roomPicker = new RoomPickerFragment();
+                    roomPicker.setArguments(bundle);
+                    roomPicker.show(getChildFragmentManager(), "room picker");
+                    return true;
+                }else if(menuItem.getItemId() == R.id.item_remove_filter){
+                    mRoom = null;
+                    mDate = null;
+                    mViewModel.loadLiveListMeeting(mRoom, mDate);
+                    return true;
+                }else
+                return false;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_toolbar, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+        toolbar.setTitle("Ma Réu");
     }
 
     @Override
@@ -109,32 +146,13 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         mDate = LocalDate.of(year, month+1, dayOfMonth);
         mViewModel.loadLiveListMeeting(mRoom,mDate);
     }
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.filter_by_Date){
-            DialogFragment datePicker = new datePickerFragment();
-            datePicker.show(getChildFragmentManager(), "date picker");
-            return true;
-        }else if (item.getItemId() == R.id.filter_by_room) {
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList(LIST_KEY, (ArrayList<String>) mMeetingRooms);
-            DialogFragment roomPicker = new RoomPickerFragment();
-            roomPicker.setArguments(bundle);
-            roomPicker.show(getChildFragmentManager(), "room picker");
-            Log.d(TAG, "filtering begins with launching dialog room picker: is triggered in Main Activity");
-            return true;
-        }else if(item.getItemId() == R.id.item_remove_filter){
-            mRoom = null;
-            mDate = null;
-            mViewModel.loadLiveListMeeting(mRoom, mDate);
-            return true;
-        }else
-            return super.onOptionsItemSelected(item);
 
-    };
     @Override
     public void onResume() {
         super.onResume();
+        mViewModel.loadLiveListMeeting(null,null);
+        fab = ((MainActivity) requireActivity()).getBinding().createMeetingFab;
+        fab.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -149,10 +167,31 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * deletion of a meeting with confirmation.
+     * @param event
+     */
     @Subscribe
     public void onDeleteMeeting (DeleteMeetingEvent event){
-        mViewModel.deleteThisMeeting(event.mMeeting);
-        Log.d(TAG, "onDeleteMeeting: is triggered in fragment ");
+        Activity activity = getActivity();
+        AlertDialog.Builder confirmDeletion = new AlertDialog.Builder(activity);
+        confirmDeletion.setTitle("Delete this Meeting");
+        confirmDeletion.setMessage("Are you sure you want to delete the meeting entitled : "+ event.mMeeting.getTitle()+" ?");
+        confirmDeletion.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                mViewModel.deleteThisMeeting(event.mMeeting);
+                Log.d(TAG, "onDeleteMeeting: is triggered in fragment ");
+                dialog.dismiss();
+            }
+        });
+        confirmDeletion.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        confirmDeletion.show();
     }
 
     @Subscribe

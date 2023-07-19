@@ -1,6 +1,10 @@
 package com.artus.mareu.ui.meetings_list;
 
+import static org.greenrobot.eventbus.EventBus.TAG;
+
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuHost;
+import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
@@ -10,9 +14,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -82,13 +92,40 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         mSpinner.setAdapter(spinnerAdapter);
         setDatePicker();
         setTimePicker();
+
         return view;
     }
+
+    private void setMenuProvider() {
+        MenuHost menuHost = requireActivity();
+        menuHost.addMenuProvider(new MenuProvider() {
+            @Override
+            public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
+                menuInflater.inflate(R.menu.menu_toolbar_create, menu);
+            }
+
+            @Override
+            public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.item_nav_back) {
+                    FragmentManager fm = getActivity().getSupportFragmentManager();
+                    Log.d(TAG, "onMenuItemSelected: fragment manager created");
+                    fm.popBackStackImmediate();
+                    Log.d(TAG, "onMenuItemSelected: fm pop fired");
+
+                    return true;
+                }
+                return true;
+            }
+        }, getViewLifecycleOwner(), Lifecycle.State.CREATED);
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
+        ((MainActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("New Meeting");
+        setMenuProvider();
     }
 
 
