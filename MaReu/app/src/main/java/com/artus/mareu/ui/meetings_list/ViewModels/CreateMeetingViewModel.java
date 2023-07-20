@@ -18,13 +18,9 @@ import java.util.List;
 public class CreateMeetingViewModel extends ViewModel {
 
     MareuRepository mMareuRepository;
-
-    private String room;
-    private LocalDate date;
-
     private List<String> availableRooms;
-
     private List<Meeting> mMeetings;
+    private boolean display;
     private MutableLiveData<Boolean> visible =new MutableLiveData<>();
 
     public CreateMeetingViewModel(MareuRepository mareuRepository) {
@@ -32,7 +28,7 @@ public class CreateMeetingViewModel extends ViewModel {
     }
 
     public MutableLiveData<Boolean> getVisible(){
-        displayRoomSpinner(false);
+        displayRoomSpinner(display);
         return visible;
     };
 
@@ -41,12 +37,8 @@ public class CreateMeetingViewModel extends ViewModel {
      * @return
      */
     public void displayRoomSpinner(boolean display){
-        if (display) {
-            visible.setValue(true);
+        visible.setValue(!display);
             Log.d(TAG, "displayRoomSpinner: is running ");
-        } else {
-            visible.setValue(false);
-        }
     }
 
 
@@ -58,8 +50,8 @@ public class CreateMeetingViewModel extends ViewModel {
 
     public List<String> fetchFilteredRooms(LocalDateTime mDateTime, List<Meeting> meetings){
         availableRooms = mMareuRepository.getAvailableRooms(mDateTime,meetings);
-        displayRoomSpinner(true);
+        displayRoomSpinner(false);
         return availableRooms;
     }
-    // TODO: Implement the ViewModel
+
 }

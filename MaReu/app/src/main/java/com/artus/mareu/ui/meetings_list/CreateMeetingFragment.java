@@ -7,6 +7,7 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,14 +30,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
+import com.artus.mareu.databinding.ItemParticipantBinding;
 import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
@@ -44,17 +49,19 @@ import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
 import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
 
+import org.greenrobot.eventbus.Subscribe;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateMeetingFragment extends Fragment implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private CreateMeetingViewModel mViewModel;
     private FragmentCreateMeetingBinding binding;
-    private Spinner mSpinner;
+    public Spinner mSpinner;
     private MareuViewModelFactory mMaReuViewModelFactory;
     private List<String> mRoom;
     private MareuRepository mMareuRepository;
@@ -68,6 +75,10 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
 
+    private List<String> participants = new ArrayList<>();
+    private RecyclerView rViewParticipants;
+    private ParticipantsAdapter adapter;
+
 
 
     public static CreateMeetingFragment newInstance() {
@@ -80,39 +91,43 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         binding = FragmentCreateMeetingBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         mSpinner = binding.spinnerRoom;
-        /**
-         * for the purpose of testing I populate with the full list of meeting Rooms.
-         */
         mMareuRepository = MareuInjection.createMareuRepository();
         mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
-        mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(CreateMeetingViewModel.class);
+        mViewModel = new ViewModelProvider(requireActivity(), mMaReuViewModelFactory).get(CreateMeetingViewModel.class);
 
         final Observer<Boolean> visibilityObserver = new Observer<Boolean>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean ){
+            public void onChanged(Boolean visible) {
+                if (visible) {
                     mSpinner.setVisibility(View.VISIBLE);
-                    spinnerAdapter.clear();
-                    spinnerAdapter.addAll(mRoom);
-                    spinnerAdapter.notifyDataSetChanged();
-                }else {
+                    Log.d(TAG, "onChanged: is running visible");
+                } else
                     mSpinner.setVisibility(View.GONE);
 
-                }
             }
         };
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
-        mRoom = mMareuRepository.getMeetingRooms();
-        spinnerAdapter = new ArrayAdapter(requireContext(), R.layout.spinner_list, mRoom);
-        spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
-        mSpinner.setAdapter(spinnerAdapter);
+        /**
+         * My participants recyclerview
+         */
+        adapter = new ParticipantsAdapter(participants);
+        rViewParticipants = binding.recyclerViewParticipants;
+        rViewParticipants.setAdapter(adapter);
+
+             //   adapter.notifyItemRemoved(position);
+
 
         setDatePicker();
         setTimePicker();
 
         return view;
     }
+    @Subscribe
+    /**
+     * here my deletion of a participant and finishing with the adapter notification
+     */
+
 
     /**
      * management of the menu and the toolbar.
@@ -124,6 +139,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar_create, menu);
             }
+
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.item_nav_back) {
@@ -142,7 +158,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
-        ((MainActivity) requireActivity()).setSupportActionBar(toolbar);
+        //((MainActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("New Meeting");
         setMenuProvider();
     }
@@ -150,7 +166,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     /**
      * management of the date Input
      */
-    public void setDatePicker(){
+    public void setDatePicker() {
         mEditDate = binding.editTextDate;
         mCalendar = binding.imageDate;
         mCalendar.setOnClickListener(new View.OnClickListener() {
@@ -161,33 +177,33 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             }
         });
     }
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        mDate = LocalDate.of(year, month+1, dayOfMonth);
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        mDate = LocalDate.of(year, month + 1, dayOfMonth);
         mEditDate.setText(mDate.toString());
-            Log.d(TAG, "onDateSet: ");
-        //checkFilledInputs();
-
+        Log.d(TAG, "onDateSet: ");
     }
     /**
      * management of the time input
      */
-    public void setTimePicker(){
+    public void setTimePicker() {
         mEditTime = binding.editTextTime;
         mClock = binding.imageTime;
         mClock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment timePicker = new TimePickerFragment();
-                timePicker.show(getChildFragmentManager(),"create time picker");
+                timePicker.show(getChildFragmentManager(), "create time picker");
             }
         });
     }
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        mTime = LocalTime.of(hourOfDay,minute);
+        mTime = LocalTime.of(hourOfDay, minute);
         mEditTime.setText(mTime.toString());
+        Log.d(TAG, "onTimeSet: ");
         checkFilledInputs();
     }
+
     /**
      * control if a date and a time have been set by the user
      */
@@ -197,11 +213,11 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             Log.d(TAG, "checkFilledInputs: launched");
             UpdateSpinnerList();
         }
-
     }
 
     /**
      * A way to combine the date input and the time input
+     *
      * @return a LocalDateTime object
      */
     public LocalDateTime fetchDateTime() {
@@ -215,10 +231,12 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     /**
      * updating the spinner list to propose only the rooms available at a specific LocalDateTime
      */
-    public void UpdateSpinnerList(){
-        mRoom = mViewModel.fetchFilteredRooms(fetchDateTime(),mViewModel.fetchMeetings(null, null));
-        Log.d(TAG, "UpdateSpinnerList: is fired ");
-
+    public void UpdateSpinnerList() {
+        mRoom = mViewModel.fetchFilteredRooms(fetchDateTime(), mViewModel.fetchMeetings(null, null));
+        spinnerAdapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_list, mRoom);
+        spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
+        mSpinner.setAdapter(spinnerAdapter);
+        Log.d(TAG, "UpdateSpinnerList: in fragment is fired ");
     }
 
     @Override
@@ -240,3 +258,4 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
 
 }
+

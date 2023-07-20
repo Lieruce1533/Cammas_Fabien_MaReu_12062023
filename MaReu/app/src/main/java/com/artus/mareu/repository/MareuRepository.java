@@ -73,6 +73,7 @@ public class MareuRepository {
             }
         }
         fullRoomList.removeAll(occupiedRooms);
+        Log.d(TAG, "getAvailableRooms: as been used");
 
         return fullRoomList;
     };

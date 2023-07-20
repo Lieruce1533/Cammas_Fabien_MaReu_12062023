@@ -19,4 +19,5 @@
     <string name="cupcake">Cupcake</string>
     <string name="remove_filter">remove filter</string>
     <string name="create_meeting_button">create meeting button</string>
+    <string name="image_remove_participant">Image remove participant</string>
 </resources>

@@ -8,9 +8,10 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="colorBin">#ff66ff</color>
+    <color name="colorBin">#ff3333</color>
     <color name="colorClearGrey">#767878</color>
     <color name="colorPrimaryDark">#0287c3</color>
     <color name="colorBackItems">#A9B2B6</color>
     <color name="colorText">#171719</color>
+    <color name="colorFragment">#cce6ff</color>
 </resources>
