@@ -111,29 +111,42 @@
 
     </Spinner>
 
-
+    <ImageView
+        android:id="@+id/Add_participant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/baseline_person_add_24"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
+        app:layout_constraintStart_toEndOf="@id/textInputLayoutParticipants"
+        app:layout_constraintTop_toTopOf="@id/textInputLayoutParticipants" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayoutParticipants"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/button_add"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/spinnerRoom"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="4dp"
         android:layout_marginTop="40dp"
-        android:gravity="center"
+        android:gravity="start"
+        android:padding="4dp"
         app:hintTextColor="@color/ColorToolbar"
         android:textColorHint="@color/ColorToolbar"
         >
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/text_input_participant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="300dp"
-            android:hint="Participants"
-            android:inputType="textMultiLine"
+            android:minWidth="200dp"
+            android:layout_marginStart="8dp"
+            android:hint="@string/Input_participants"
+            android:inputType="textEmailAddress"
+            android:textSize="18sp"
             android:padding="4dp"
             android:textAlignment="center"
             android:background="@drawable/edit_text_bg"
@@ -144,6 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            app:layoutManager="LinearLayoutManager"
             />
     </com.google.android.material.textfield.TextInputLayout>
 

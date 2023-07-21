@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,11 +38,13 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
 import com.artus.mareu.databinding.ItemParticipantBinding;
 import com.artus.mareu.di.MareuInjection;
+import com.artus.mareu.events.DeleteParticipantEvent;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
@@ -49,6 +52,7 @@ import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
 import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
@@ -74,7 +78,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private ImageView mCalendar;
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
-
+    private ImageView addParticipant;
     private List<String> participants = new ArrayList<>();
     private RecyclerView rViewParticipants;
     private ParticipantsAdapter adapter;
@@ -108,26 +112,52 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         };
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
-        /**
-         * My participants recyclerview
-         */
-        adapter = new ParticipantsAdapter(participants);
-        rViewParticipants = binding.recyclerViewParticipants;
-        rViewParticipants.setAdapter(adapter);
-
-             //   adapter.notifyItemRemoved(position);
-
-
         setDatePicker();
         setTimePicker();
 
         return view;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
     @Subscribe
     /**
      * here my deletion of a participant and finishing with the adapter notification
      */
+    public void onDeleteParticipant(DeleteParticipantEvent event) {
+        participants.remove(event.participant);
+        adapter.notifyDataSetChanged();
+    }
+    /**
+     * Here the method to add a New Participant to a meeting
+     */
+    public void addNewParticipant() {
+        String participantToAdd = binding.textInputParticipant.getText().toString();
+        if(!TextUtils.isEmpty(participantToAdd)){
+        participants.add(participantToAdd);
+        binding.textInputParticipant.getText().clear();
+            if (participants.size() == 1) {
+                adapter = new ParticipantsAdapter(participants);
+                rViewParticipants = binding.recyclerViewParticipants;
+                rViewParticipants.setAdapter(adapter);
+            } else {
+                adapter.notifyDataSetChanged();
+            }
+        }else {
+            Toast toast = Toast.makeText(getActivity(), "You must enter an email address", Toast.LENGTH_LONG);
+            toast.show();
+        }
 
+
+    }
 
     /**
      * management of the menu and the toolbar.
@@ -158,9 +188,15 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
-        //((MainActivity) requireActivity()).setSupportActionBar(toolbar);
         toolbar.setTitle("New Meeting");
         setMenuProvider();
+        addParticipant = binding.AddParticipant;
+        addParticipant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewParticipant();
+            }
+        });
     }
 
     /**

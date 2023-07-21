@@ -42,7 +42,6 @@ class ParticipantsAdapter extends RecyclerView.Adapter<ParticipantsAdapter.ViewH
             @Override
             public void onClick(View view) {
                 EventBus.getDefault().post(new DeleteParticipantEvent(participant));
-
             }
         });
     }
