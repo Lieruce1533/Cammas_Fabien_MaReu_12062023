@@ -81,9 +81,9 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         binding = FragmentMeetingsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         //connection / creation du viewModel (shared with the main activity)
-        mMareuRepository = MareuInjection.createMareuRepository();
-        mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
+        mMaReuViewModelFactory = new MareuViewModelFactory();
         mViewModel = new ViewModelProvider(requireActivity(),mMaReuViewModelFactory).get(MeetingsViewModel.class);
+        mMareuRepository = MareuRepository.getInstance();
         mMeetingRooms = mMareuRepository.getMeetingRooms();
         //my observer
         final Observer<List<Meeting>> listObserver = new Observer<List<Meeting>>() {

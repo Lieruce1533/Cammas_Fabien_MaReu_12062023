@@ -1,176 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    tools:context=".ui.meetings_list.MainActivity">
+    android:fillViewport="true"
+    tools:context=".ui.meetings_list.MainActivity"
+    tools:ignore="MissingClass"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:minHeight="40dp"
-        android:padding="4dp"
-        app:hintTextColor="@color/ColorToolbar"
-        android:textColorHint="@color/ColorToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-
-
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edit_text_bg"
-            android:hint="Title"
-            android:minWidth="300dp"
-            android:minHeight="40dp"
-            android:padding="4dp"
-            android:textAlignment="center"
-            android:textColor="@color/ColorToolbar"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:fillViewport="true">
 
-            />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:minHeight="40dp"
+                android:padding="4dp"
+                android:textColorHint="@color/ColorToolbar"
+                app:hintTextColor="@color/ColorToolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="Title"
+                    android:minWidth="300dp"
+                    android:minHeight="40dp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/ColorToolbar"
 
-    <EditText
-        android:id="@+id/editTextDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="5"
-        android:inputType="date"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="40dp"
-        android:textColorHint="@color/ColorToolbar"
-        android:hint="Date"
-        android:padding="4dp"
-        android:textAlignment="center"
-        android:textColor="@color/ColorToolbar"
-        android:background="@drawable/edit_text_bg"
-        app:layout_constraintEnd_toStartOf="@id/image_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle" />
+                    />
 
-    <ImageView
-        android:id="@+id/image_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="@id/spinnerRoom"
-        app:layout_constraintStart_toEndOf="@id/editTextDate"
-        app:layout_constraintTop_toTopOf="@id/editTextDate"
-        app:srcCompat="@drawable/baseline_calendar_month_24" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/editTextTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/edit_text_bg"
-        android:ems="5"
-        android:hint="Time"
-        android:inputType="time"
-        android:padding="4dp"
-        android:textAlignment="center"
-        android:textColor="@color/ColorToolbar"
-        android:textColorHint="@color/ColorToolbar"
-        app:layout_constraintEnd_toEndOf="@id/editTextDate"
-        app:layout_constraintStart_toStartOf="@id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edit_text_bg"
+                android:ems="5"
+                android:hint="Date"
+                android:inputType="date"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/ColorToolbar"
+                android:textColorHint="@color/ColorToolbar"
+                app:layout_constraintEnd_toStartOf="@id/image_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle" />
 
-    <ImageView
-        android:id="@+id/image_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintEnd_toEndOf="@id/image_date"
-        app:layout_constraintStart_toStartOf="@id/image_date"
-        app:layout_constraintTop_toTopOf="@id/editTextTime"
-        app:srcCompat="@drawable/baseline_access_time_28" />
+            <ImageView
+                android:id="@+id/image_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="@id/spinnerRoom"
+                app:layout_constraintStart_toEndOf="@id/editTextDate"
+                app:layout_constraintTop_toTopOf="@id/editTextDate"
+                app:srcCompat="@drawable/baseline_calendar_month_24" />
 
-    <Spinner
-        android:id="@+id/spinnerRoom"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:minWidth="150dp"
-        android:popupBackground="@drawable/edit_text_bg"
-        android:popupElevation="6dp"
-        android:background="@drawable/edit_text_bg"
-        android:dropDownWidth="match_parent"
-        android:dropDownVerticalOffset="@dimen/spinner_dropdown_offset"
-        app:layout_constraintStart_toStartOf="@id/editTextDate"
-        app:layout_constraintTop_toBottomOf="@id/editTextTime">
+            <EditText
+                android:id="@+id/editTextTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edit_text_bg"
+                android:ems="5"
+                android:hint="Time"
+                android:inputType="time"
+                android:padding="4dp"
+                android:textAlignment="center"
+                android:textColor="@color/ColorToolbar"
+                android:textColorHint="@color/ColorToolbar"
+                app:layout_constraintEnd_toEndOf="@id/editTextDate"
+                app:layout_constraintStart_toStartOf="@id/editTextDate"
+                app:layout_constraintTop_toBottomOf="@id/editTextDate" />
 
-    </Spinner>
+            <ImageView
+                android:id="@+id/image_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintEnd_toEndOf="@id/image_date"
+                app:layout_constraintStart_toStartOf="@id/image_date"
+                app:layout_constraintTop_toTopOf="@id/editTextTime"
+                app:srcCompat="@drawable/baseline_access_time_28" />
 
-    <ImageView
-        android:id="@+id/Add_participant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/baseline_person_add_24"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
-        app:layout_constraintStart_toEndOf="@id/textInputLayoutParticipants"
-        app:layout_constraintTop_toTopOf="@id/textInputLayoutParticipants" />
+            <Spinner
+                android:id="@+id/spinnerRoom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/edit_text_bg"
+                android:dropDownWidth="match_parent"
+                android:dropDownVerticalOffset="@dimen/spinner_dropdown_offset"
+                android:minWidth="150dp"
+                android:popupBackground="@drawable/edit_text_bg"
+                android:popupElevation="6dp"
+                app:layout_constraintStart_toStartOf="@id/editTextDate"
+                app:layout_constraintTop_toBottomOf="@id/editTextTime">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayoutParticipants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/button_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/spinnerRoom"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginTop="40dp"
-        android:gravity="start"
-        android:padding="4dp"
-        app:hintTextColor="@color/ColorToolbar"
-        android:textColorHint="@color/ColorToolbar"
-        >
+            </Spinner>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text_input_participant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minWidth="200dp"
-            android:layout_marginStart="8dp"
-            android:hint="@string/Input_participants"
-            android:inputType="textEmailAddress"
-            android:textSize="18sp"
-            android:padding="4dp"
-            android:textAlignment="center"
-            android:background="@drawable/edit_text_bg"
-            />
+            <ImageView
+                android:id="@+id/Add_participant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="12dp"
+                android:src="@drawable/baseline_person_add_24"
+                app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
+                app:layout_constraintStart_toEndOf="@id/textInputLayoutParticipants"
+                app:layout_constraintTop_toTopOf="@id/textInputLayoutParticipants" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_participants"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layoutManager="LinearLayoutManager"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutParticipants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="4dp"
+                android:gravity="start"
+                android:padding="4dp"
+                android:textColorHint="@color/ColorToolbar"
+                app:hintTextColor="@color/ColorToolbar"
+                app:layout_constraintEnd_toEndOf="@id/button_add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spinnerRoom">
 
-    <Button
-        android:id="@+id/button_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:backgroundTint="@color/ColorToolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayoutParticipants" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_participant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="@string/Input_participants"
+                    android:inputType="textEmailAddress"
+                    android:minWidth="200dp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_participants"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layoutManager="LinearLayoutManager" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/ColorToolbar"
+                android:text="Save"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutParticipants" />
 
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

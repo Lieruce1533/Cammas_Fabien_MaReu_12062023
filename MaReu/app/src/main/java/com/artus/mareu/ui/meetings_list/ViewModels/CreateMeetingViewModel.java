@@ -21,37 +21,40 @@ public class CreateMeetingViewModel extends ViewModel {
     private List<String> availableRooms;
     private List<Meeting> mMeetings;
     private boolean display;
-    private MutableLiveData<Boolean> visible =new MutableLiveData<>();
+    private MutableLiveData<Boolean> visible = new MutableLiveData<>();
 
     public CreateMeetingViewModel(MareuRepository mareuRepository) {
         mMareuRepository = mareuRepository;
     }
 
-    public MutableLiveData<Boolean> getVisible(){
+    public MutableLiveData<Boolean> getVisible() {
         displayRoomSpinner(display);
         return visible;
-    };
+    }
 
     /**
      * changing the value of our boolean live data
+     *
      * @return
      */
-    public void displayRoomSpinner(boolean display){
+    public void displayRoomSpinner(boolean display) {
         visible.setValue(!display);
-            Log.d(TAG, "displayRoomSpinner: is running ");
+        Log.d(TAG, "displayRoomSpinner: is running ");
     }
 
 
-
-    public List<Meeting> fetchMeetings(String room, LocalDate date){
-        mMeetings = mMareuRepository.getMeetings(room,date);
+    public List<Meeting> fetchMeetings(String room, LocalDate date) {
+        mMeetings = mMareuRepository.getMeetings(room, date);
         return mMeetings;
     }
 
-    public List<String> fetchFilteredRooms(LocalDateTime mDateTime, List<Meeting> meetings){
-        availableRooms = mMareuRepository.getAvailableRooms(mDateTime,meetings);
+    public List<String> fetchFilteredRooms(LocalDateTime mDateTime, List<Meeting> meetings) {
+        availableRooms = mMareuRepository.getAvailableRooms(mDateTime, meetings);
         displayRoomSpinner(false);
         return availableRooms;
     }
 
+    public void addMeeting(Meeting meeting) {
+        mMareuRepository.createMeeting(meeting);
+    }
 }

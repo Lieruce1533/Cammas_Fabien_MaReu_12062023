@@ -12,8 +12,8 @@ public class MareuViewModelFactory implements ViewModelProvider.Factory {
 
     private final MareuRepository mMareuRepository;
 
-    public MareuViewModelFactory(MareuRepository mareuRepository) {
-        this.mMareuRepository = mareuRepository;
+    public MareuViewModelFactory() {
+        mMareuRepository = MareuRepository.getInstance();
     }
 
 

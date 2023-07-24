@@ -34,7 +34,6 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:textAlignment="center"
-
             tools:text="The Title of the Meeting">
 
         </TextView>

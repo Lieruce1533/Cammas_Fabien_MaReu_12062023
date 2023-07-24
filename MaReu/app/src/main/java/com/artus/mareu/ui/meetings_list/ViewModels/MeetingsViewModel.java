@@ -34,7 +34,6 @@ public class MeetingsViewModel extends ViewModel {
     public void loadLiveListMeeting(String room, LocalDate date) {
             List<Meeting> listMeeting = mMareuRepository.getMeetings(room, date);
             liveListMeeting.setValue(listMeeting);
-
     }
 
     /**
@@ -45,9 +44,5 @@ public class MeetingsViewModel extends ViewModel {
        mMareuRepository.deleteMeeting(meeting);
        loadLiveListMeeting(room, date);
     }
-
-
-
-    // TODO: Implement the ViewModel
 
 }

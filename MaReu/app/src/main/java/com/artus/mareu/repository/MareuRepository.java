@@ -4,6 +4,7 @@ import static org.greenrobot.eventbus.EventBus.TAG;
 
 import android.util.Log;
 
+import com.artus.mareu.DataSource.MareuApiService;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.DataSource.MeetingApiService;
 
@@ -21,12 +22,20 @@ import java8.util.Optional;
 
 public class MareuRepository {
 
+    private static MareuRepository instance;
     private final MeetingApiService apiService;
     private List<Meeting> mMeetings;
     private List<String> roomFree;
 
     public MareuRepository(MeetingApiService apiService) {
         this.apiService = apiService;
+    }
+
+    public static synchronized MareuRepository getInstance(){
+        if (instance == null ){
+            instance = new MareuRepository(new MareuApiService());
+        }
+        return instance;
     }
 
     public List<Meeting> getMeetings(String room, LocalDate date){

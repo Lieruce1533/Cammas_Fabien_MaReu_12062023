@@ -45,6 +45,7 @@ import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
 import com.artus.mareu.databinding.ItemParticipantBinding;
 import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.events.DeleteParticipantEvent;
+import com.artus.mareu.model.Meeting;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
@@ -72,6 +73,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private LocalDateTime mDateTime;
     private LocalDate mDate;
     private LocalTime mTime;
+    private EditText mEditTitleMeeting;
     private EditText mEditDate;
     private EditText mEditTime;
     private ImageView mClock;
@@ -79,6 +81,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
     private ImageView addParticipant;
+    private Button saveButton;
     private List<String> participants = new ArrayList<>();
     private RecyclerView rViewParticipants;
     private ParticipantsAdapter adapter;
@@ -95,8 +98,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         binding = FragmentCreateMeetingBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         mSpinner = binding.spinnerRoom;
-        mMareuRepository = MareuInjection.createMareuRepository();
-        mMaReuViewModelFactory = new MareuViewModelFactory(mMareuRepository);
+        mMaReuViewModelFactory = new MareuViewModelFactory();
         mViewModel = new ViewModelProvider(requireActivity(), mMaReuViewModelFactory).get(CreateMeetingViewModel.class);
 
         final Observer<Boolean> visibilityObserver = new Observer<Boolean>() {
@@ -112,6 +114,13 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         };
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
+        saveButton = binding.buttonAdd;
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveNewMeeting();
+            }
+        });
         setDatePicker();
         setTimePicker();
 
@@ -273,6 +282,32 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
         mSpinner.setAdapter(spinnerAdapter);
         Log.d(TAG, "UpdateSpinnerList: in fragment is fired ");
+    }
+    /**
+     * checking if all the field are filled before creating a new meeting
+     */
+    public boolean inputsFilled(){
+        mEditTitleMeeting= binding.editTextTitle;
+        if((TextUtils.isEmpty(mEditTitleMeeting.getText())) || (mSpinner.getVisibility() == View.GONE) || (participants.size() < 1)){
+            Toast toast = Toast.makeText(getActivity(), "You must fill all the fields", Toast.LENGTH_LONG);
+            toast.show();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * creating saving new meeting via view model
+     */
+    public void saveNewMeeting(){
+        Meeting meetingToCreate;
+        Long refId = mViewModel.fetchMeetings(null,null).get(mViewModel.fetchMeetings(null,null).size() -1).getId();
+        if (inputsFilled()){
+            meetingToCreate = new Meeting((refId +1), mEditTitleMeeting.getText().toString(),fetchDateTime(),mSpinner.toString(),participants);
+            mViewModel.addMeeting(meetingToCreate);
+            Log.d(TAG, "saveNewMeeting: as run");
+        }
     }
 
     @Override

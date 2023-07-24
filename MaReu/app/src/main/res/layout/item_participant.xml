@@ -7,15 +7,14 @@
 
     <TextView
         android:id="@+id/item_participant_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:minWidth="170dp"
+        android:layout_width="170dp"
+        android:layout_height="30dp"
         android:textColor="@color/ColorToolbar"
-        android:textSize="16sp"
-        android:textAlignment="center"
+        android:textSize="14sp"
+        android:textAlignment="textStart"
         android:layout_marginStart="8dp"
         android:padding="4dp"
-        android:background="@drawable/edit_text_bg"
+        android:background="@color/colorFragment"
         android:text="TextView" />
 
     <ImageView

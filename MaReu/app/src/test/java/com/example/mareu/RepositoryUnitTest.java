@@ -35,7 +35,7 @@ public class RepositoryUnitTest {
     private int defaultListSize= 8;
 
     @Before
-    public void setup(){ mRepository = MareuInjection.createMareuRepository();}
+    public void setup(){ mRepository = MareuRepository.getInstance();}
 
 
     @Test
