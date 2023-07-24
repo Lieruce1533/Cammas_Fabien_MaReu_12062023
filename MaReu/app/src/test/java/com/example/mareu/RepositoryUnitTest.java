@@ -1,6 +1,5 @@
 package com.example.mareu;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.threeten.bp.LocalDate;
@@ -8,10 +7,7 @@ import org.threeten.bp.LocalDateTime;
 
 import static org.junit.Assert.*;
 
-import com.artus.mareu.DataSource.MareuApiService;
-import com.artus.mareu.DataSource.MeetingApiService;
 import com.artus.mareu.DataSource.MeetingGenerator;
-import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.repository.MareuRepository;
 

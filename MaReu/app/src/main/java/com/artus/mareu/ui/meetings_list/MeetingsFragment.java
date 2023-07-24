@@ -7,7 +7,6 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 
 import com.artus.mareu.R;
-import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.events.DeleteMeetingEvent;
 import com.artus.mareu.events.FilterByRoomEvent;
 import com.artus.mareu.model.Meeting;

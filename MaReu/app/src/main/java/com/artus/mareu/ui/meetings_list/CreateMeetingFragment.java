@@ -7,7 +7,6 @@ import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.DialogFragment;
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
@@ -36,21 +35,17 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
-import com.artus.mareu.databinding.ItemParticipantBinding;
-import com.artus.mareu.di.MareuInjection;
 import com.artus.mareu.events.DeleteParticipantEvent;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.repository.MareuRepository;
 import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
 import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
-import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
 
 import org.greenrobot.eventbus.EventBus;
@@ -80,6 +75,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private ImageView mCalendar;
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
+    private String selectedRoom;
     private ImageView addParticipant;
     private Button saveButton;
     private List<String> participants = new ArrayList<>();
@@ -304,7 +300,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         Meeting meetingToCreate;
         Long refId = mViewModel.fetchMeetings(null,null).get(mViewModel.fetchMeetings(null,null).size() -1).getId();
         if (inputsFilled()){
-            meetingToCreate = new Meeting((refId +1), mEditTitleMeeting.getText().toString(),fetchDateTime(),mSpinner.toString(),participants);
+            meetingToCreate = new Meeting((refId +1), mEditTitleMeeting.getText().toString(),fetchDateTime(),selectedRoom,participants);
             mViewModel.addMeeting(meetingToCreate);
             Log.d(TAG, "saveNewMeeting: as run");
         }
@@ -319,7 +315,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+        selectedRoom = parent.getSelectedItem().toString();
     }
 
     @Override
