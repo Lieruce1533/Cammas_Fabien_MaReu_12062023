@@ -16,7 +16,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:background="@drawable/create_meeting_bg"
+            android:elevation="8dp"
             android:fillViewport="true">
 
             <com.google.android.material.textfield.TextInputLayout
@@ -27,9 +30,9 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
                 android:minHeight="40dp"
-                android:padding="4dp"
-                android:textColorHint="@color/ColorToolbar"
-                app:hintTextColor="@color/ColorToolbar"
+
+                android:textColorHint="@color/TextPresenter"
+                app:hintTextColor="@color/TextPresenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -44,7 +47,7 @@
                     android:minHeight="40dp"
                     android:padding="4dp"
                     android:textAlignment="center"
-                    android:textColor="@color/ColorToolbar"
+                    android:textColor="@color/TextPresenter"
 
                     />
 
@@ -54,7 +57,7 @@
                 android:id="@+id/editTextDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+
                 android:layout_marginTop="40dp"
                 android:background="@drawable/edit_text_bg"
                 android:ems="5"
@@ -62,10 +65,10 @@
                 android:inputType="date"
                 android:padding="4dp"
                 android:textAlignment="center"
-                android:textColor="@color/ColorToolbar"
-                android:textColorHint="@color/ColorToolbar"
-                app:layout_constraintEnd_toStartOf="@id/image_date"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@color/TextPresenter"
+                android:textColorHint="@color/TextPresenter"
+
+                app:layout_constraintStart_toStartOf="@id/textInputLayoutTitle"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle" />
 
             <ImageView
@@ -89,8 +92,8 @@
                 android:inputType="time"
                 android:padding="4dp"
                 android:textAlignment="center"
-                android:textColor="@color/ColorToolbar"
-                android:textColorHint="@color/ColorToolbar"
+                android:textColor="@color/TextPresenter"
+                android:textColorHint="@color/TextPresenter"
                 app:layout_constraintEnd_toEndOf="@id/editTextDate"
                 app:layout_constraintStart_toStartOf="@id/editTextDate"
                 app:layout_constraintTop_toBottomOf="@id/editTextDate" />
@@ -136,22 +139,22 @@
                 android:id="@+id/textInputLayoutParticipants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="start"
-                android:padding="4dp"
-                android:textColorHint="@color/ColorToolbar"
-                app:hintTextColor="@color/ColorToolbar"
-                app:layout_constraintEnd_toEndOf="@id/button_add"
-                app:layout_constraintStart_toStartOf="parent"
+
+                android:textColorHint="@color/TextPresenter"
+                app:hintTextColor="@color/TextPresenter"
+
+                app:layout_constraintStart_toStartOf="@id/editTextDate"
                 app:layout_constraintTop_toBottomOf="@id/spinnerRoom">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/text_input_participant"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
+
                     android:background="@drawable/edit_text_bg"
                     android:hint="@string/Input_participants"
                     android:inputType="textEmailAddress"
@@ -172,8 +175,14 @@
                 android:id="@+id/button_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/ColorToolbar"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/colorCardView"
+                android:shadowColor="@color/TextPresenter"
+                android:elevation="8dp"
                 android:text="Save"
+                android:textColor="@color/colorFragment"
+                android:textStyle="bold"
+                android:background="@drawable/rectangle_round_bg"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

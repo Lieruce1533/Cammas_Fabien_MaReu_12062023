@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
-    android:textColor="@color/ColorToolbar"
+    android:textColor="@color/TextPresenter"
     android:textSize="18sp"
     android:textStyle="normal"
     android:textAlignment="center"/>

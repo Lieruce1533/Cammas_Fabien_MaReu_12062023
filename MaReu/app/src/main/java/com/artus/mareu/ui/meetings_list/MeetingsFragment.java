@@ -93,14 +93,12 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         };
         mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), listObserver);
         mRecyclerView = binding.recyclerViewMeetings;
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
         ((MainActivity) requireActivity()).setSupportActionBar(toolbar);
         setHomeMenuProvider();
 
         return view;
     }
-
     private void setHomeMenuProvider(){
         menuHost = requireActivity();
         menuHost.addMenuProvider(new MenuProvider() {
@@ -108,7 +106,6 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar, menu);
             }
-
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == R.id.filter_by_Date){
@@ -132,19 +129,16 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
             }
         }, getViewLifecycleOwner(), Lifecycle.State.RESUMED);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.setTitle("Ma Réu");
     }
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mDate = LocalDate.of(year, month+1, dayOfMonth);
         mViewModel.loadLiveListMeeting(mRoom,mDate);
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -152,19 +146,16 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         fab = ((MainActivity) requireActivity()).getBinding().createMeetingFab;
         fab.setVisibility(View.VISIBLE);
     }
-
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
     }
-
     @Override
     public void onStop() {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
     /**
      * deletion of a meeting with confirmation.
      * @param event
@@ -191,13 +182,10 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         });
         confirmDeletion.show();
     }
-
     @Subscribe
     public void onFilterMeetingRoom(FilterByRoomEvent event){
         mViewModel.loadLiveListMeeting(event.room, mDate);
     }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

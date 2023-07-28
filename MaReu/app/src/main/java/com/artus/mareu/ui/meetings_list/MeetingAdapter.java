@@ -45,18 +45,21 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Meeting meeting = mMeetingList.get(position);
         holder.mMeetingTitle.setText(meeting.getTitle());
+        holder.mMeetingDate.setText(meeting.getDateTimeMeeting().toLocalDate().toString());
         holder.mMeetingRoomName.setText(meeting.getLocation());
         holder.mMeetingTime.setText(meeting.getDateTimeMeeting().toLocalTime().toString());
-        holder.mMeetingParticipants.setText(meeting.getParticipantsList().toString());
-
+        List<String> mParticipants = meeting.getParticipantsList();
+        StringBuilder participantsBuilder = new StringBuilder();
+        for (String item : mParticipants){
+            participantsBuilder.append(item).append("\n");
+        }
+        holder.mMeetingParticipants.setText(participantsBuilder.toString());
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new DeleteMeetingEvent(meeting));
             }
         });
-
-
     }
 
     @Override
@@ -67,7 +70,8 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView mMeetingTitle;
-        ImageButton mDeleteButton;
+        ImageView mDeleteButton;
+        TextView mMeetingDate;
         TextView mMeetingRoomName;
         TextView mMeetingTime;
         TextView mMeetingParticipants;
@@ -79,6 +83,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
             this.binding = binding;
             mMeetingTitle = binding.itemListMeetingTitle;
             mDeleteButton = binding.itemListMeetingDeleteButton;
+            mMeetingDate = binding.itemListMeetingDate;
             mMeetingRoomName = binding.itemListMeetingRoomName;
             mMeetingTime = binding.itemListMeetingHour;
             mMeetingParticipants = binding.itemListMeetingParticipants;
