@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="spinner_dropdown_offset">70dp</dimen>
+    <dimen name="size_text_presenter">36sp</dimen>
+    <dimen name="size_text_values">48sp</dimen>
+    <dimen name="size_title">60sp</dimen>
+    <dimen name="size_participants">30sp</dimen>
+    <dimen name="padding_text_fields">10dp</dimen>
+    <dimen name="top_margin_create_text_fields">40dp</dimen>
+
+
+</resources>

@@ -3,6 +3,7 @@ package com.artus.mareu.ui.meetings_list;
 import static org.greenrobot.eventbus.EventBus.TAG;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
@@ -36,6 +37,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -69,18 +71,19 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     private LocalDate mDate;
     private LocalTime mTime;
     private EditText mEditTitleMeeting;
-    private EditText mEditDate;
-    private EditText mEditTime;
+    private TextView mTextDate;
+    private TextView mTextTime;
     private ImageView mClock;
     private ImageView mCalendar;
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
     private String selectedRoom;
-    private ImageView addParticipant;
+    private ImageView addParticipantButton;
     private Button saveButton;
     private List<String> participants = new ArrayList<>();
     private RecyclerView rViewParticipants;
     private ParticipantsAdapter adapter;
+    private LinearLayoutCompat mLayoutDate, mLayoutTime;
 
 
 
@@ -112,8 +115,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
             @Override
             public void handleOnBackPressed() {
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                fm.popBackStackImmediate();
+                closeFragment();
                 Log.d(TAG, "onBackPressed: is fired");
             }
         };
@@ -145,6 +147,10 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+    public void closeFragment(){
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        fm.popBackStackImmediate();
+    }
     @Subscribe
     /**
      * here my deletion of a participant and finishing with the adapter notification
@@ -172,10 +178,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             Toast toast = Toast.makeText(getActivity(), "You must enter an email address", Toast.LENGTH_LONG);
             toast.show();
         }
-
-
     }
-
     /**
      * management of the menu and the toolbar.
      */
@@ -186,7 +189,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
                 menuInflater.inflate(R.menu.menu_toolbar_create, menu);
             }
-
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == android.R.id.home) {
@@ -207,28 +209,30 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         super.onViewCreated(view, savedInstanceState);
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
         toolbar.setTitle("New Meeting");
-/**
- * this a native back button, I can manage to make it appear but it doesn't trigger anything
- */
+        /**
+        * this a native back button, I can manage to make it appear but it doesn't trigger anything
+        */
         ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setMenuProvider();
-
-        addParticipant = binding.AddParticipant;
-        addParticipant.setOnClickListener(new View.OnClickListener() {
+        /**
+         * handling the Button to add participant to the meeting
+         */
+        addParticipantButton = binding.AddParticipant;
+        addParticipantButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 addNewParticipant();
             }
         });
     }
-
     /**
      * management of the date Input
      */
     public void setDatePicker() {
-        mEditDate = binding.editTextDate;
+        mLayoutDate= binding.layoutDate;
+        mTextDate = binding.TextDate;
         mCalendar = binding.imageDate;
-        mCalendar.setOnClickListener(new View.OnClickListener() {
+        mLayoutDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment datePicker = new datePickerFragment();
@@ -238,16 +242,17 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     }
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mDate = LocalDate.of(year, month + 1, dayOfMonth);
-        mEditDate.setText(mDate.toString());
+        mTextDate.setText(mDate.toString());
         Log.d(TAG, "onDateSet: ");
     }
     /**
      * management of the time input
      */
     public void setTimePicker() {
-        mEditTime = binding.editTextTime;
+        mLayoutTime = binding.layoutTime;
+        mTextTime = binding.TextTime;
         mClock = binding.imageTime;
-        mClock.setOnClickListener(new View.OnClickListener() {
+        mLayoutTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DialogFragment timePicker = new TimePickerFragment();
@@ -258,21 +263,19 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         mTime = LocalTime.of(hourOfDay, minute);
-        mEditTime.setText(mTime.toString());
+        mTextTime.setText(mTime.toString());
         Log.d(TAG, "onTimeSet: ");
         checkFilledInputs();
     }
     /**
      * control if a date and a time have been set by the user
      */
-
     public void checkFilledInputs() {
-        if ((mEditDate.getText() != null) && (mEditTime.getText() != null)) {
+        if ((mTextDate.getText() != null) && (mTextTime.getText() != null)) {
             Log.d(TAG, "checkFilledInputs: launched");
             UpdateSpinnerList();
         }
     }
-
     /**
      * A way to combine the date input and the time input
      *
@@ -280,12 +283,11 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
      */
     public LocalDateTime fetchDateTime() {
 
-        mDate = LocalDate.parse(mEditDate.getText().toString());
-        mTime = LocalTime.parse(mEditTime.getText().toString());
+        mDate = LocalDate.parse(mTextDate.getText().toString());
+        mTime = LocalTime.parse(mTextTime.getText().toString());
         mDateTime = LocalDateTime.of(mDate, mTime);
         return mDateTime;
     }
-
     /**
      * updating the spinner list to propose only the rooms available at a specific LocalDateTime
      */
@@ -295,6 +297,22 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
         mSpinner.setAdapter(spinnerAdapter);
         Log.d(TAG, "UpdateSpinnerList: in fragment is fired ");
+    }
+
+    /**
+     * Handling selection of a room with the spinner, affecting the value to selectedRoom.
+     * @param parent The AdapterView where the selection happened
+     * @param view The view within the AdapterView that was clicked
+     * @param position The position of the view in the adapter
+     * @param id The row id of the item that is selected
+     */
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        selectedRoom = parent.getSelectedItem().toString();
+    }
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
     /**
      * checking if all the field are filled before creating a new meeting
@@ -309,7 +327,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             return true;
         }
     }
-
     /**
      * creating and adding new meeting via view model
      */
@@ -319,6 +336,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         if (inputsFilled()){
             meetingToCreate = new Meeting((refId +1), mEditTitleMeeting.getText().toString(),fetchDateTime(),selectedRoom,participants);
             mViewModel.addMeeting(meetingToCreate);
+            closeFragment();
             Log.d(TAG, "saveNewMeeting: as run");
         }
     }
@@ -329,18 +347,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         binding = null;
 
     }
-
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        selectedRoom = parent.getSelectedItem().toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
 
 }
 
