@@ -9,7 +9,7 @@
         android:id="@+id/item_participant_textView"
         android:layout_width="200dp"
         android:layout_height="30dp"
-        android:textColor="@color/TextPresenter"
+        android:textColor="@color/colorTextDark"
         android:textSize="@dimen/size_text_presenter"
         android:textAlignment="textStart"
         android:padding="4dp"

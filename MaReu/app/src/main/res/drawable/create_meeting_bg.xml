@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <solid
-        android:color="@color/colorCardViewClear">
+        android:color="#CBCCCD">
     </solid>
     <stroke
-        android:width="2dp"
-        android:color="@color/colorCardView">
+        android:width="0dp"
+        android:color="@color/ColorToolbar">
     </stroke>
     <padding
         android:bottom="4dp"

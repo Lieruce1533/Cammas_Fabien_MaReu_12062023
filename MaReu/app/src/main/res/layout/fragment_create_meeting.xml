@@ -29,8 +29,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:minHeight="40dp"
-                android:textColorHint="@color/TextPresenter"
-                app:hintTextColor="@color/TextPresenter"
+                android:textColorHint="@color/colorTextDark"
+                app:hintTextColor="@color/colorTextDark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -46,7 +46,7 @@
                     android:padding="4dp"
                     android:textSize="@dimen/size_title"
                     android:textAlignment="center"
-                    android:textColor="@color/TextPresenter"
+                    android:textColor="@color/colorTextDark"
 
                     />
 
@@ -70,7 +70,7 @@
                     android:padding="4dp"
                     android:textSize="@dimen/size_text_values"
                     android:textAlignment="textStart"
-                    android:textColor="@color/TextPresenter"/>
+                    android:textColor="@color/colorTextDark"/>
 
                 <ImageView
                     android:id="@+id/image_date"
@@ -99,7 +99,7 @@
                 android:padding="4dp"
                 android:textSize="@dimen/size_text_values"
                 android:textAlignment="textStart"
-                android:textColor="@color/TextPresenter"/>
+                android:textColor="@color/colorTextDark"/>
 
             <ImageView
                 android:id="@+id/image_time"
@@ -117,7 +117,6 @@
                 android:layout_marginTop="40dp"
                 android:background="@drawable/edit_text_bg"
                 android:dropDownWidth="match_parent"
-
                 android:minWidth="150dp"
                 android:popupBackground="@drawable/edit_text_bg"
                 android:popupElevation="6dp"
@@ -144,8 +143,8 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="4dp"
                 android:gravity="start"
-                android:textColorHint="@color/TextPresenter"
-                app:hintTextColor="@color/TextPresenter"
+                android:textColorHint="@color/colorTextDark"
+                app:hintTextColor="@color/colorTextDark"
                 app:layout_constraintStart_toStartOf="@id/layoutDate"
                 app:layout_constraintTop_toBottomOf="@id/spinnerRoom">
 
@@ -174,13 +173,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/rectangle_round_bg"
-                android:backgroundTint="@color/colorCardView"
+                android:background="@drawable/button_bg"
                 android:elevation="8dp"
-                android:shadowColor="@color/TextPresenter"
+                android:shadowColor="@color/colorTextDark"
                 android:text="Save"
                 android:textColor="@color/colorFragment"
                 android:textStyle="bold"
+                android:textSize="@dimen/size_text_values"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
