@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.artus.mareu.ui.meetings_list.MainActivity"
-    android:backgroundTint="@color/colorClearGrey">
+    >
 
     <include
         android:id="@+id/toolbar"
