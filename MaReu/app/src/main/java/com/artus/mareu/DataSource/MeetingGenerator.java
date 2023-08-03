@@ -1,6 +1,6 @@
-package com.artus.mareus.DataSource;
+package com.artus.mareu.DataSource;
 
-import com.artus.mareus.model.Meeting;
+import com.artus.mareu.model.Meeting;
 
 import org.threeten.bp.LocalDateTime;
 

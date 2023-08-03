@@ -1,4 +1,4 @@
-package com.artus.mareus.events;
+package com.artus.mareu.events;
 
 
 /**
