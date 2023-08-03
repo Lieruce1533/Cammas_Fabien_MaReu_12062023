@@ -13,8 +13,6 @@ import com.artus.mareu.events.FilterByRoomEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
-
 public class RoomPickerFragment extends DialogFragment {
 
     private final String LIST_KEY="meetings room";

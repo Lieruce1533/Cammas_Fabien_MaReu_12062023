@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.artus.mareu.databinding.ItemParticipantBinding;
-import com.artus.mareu.events.DeleteMeetingEvent;
 import com.artus.mareu.events.DeleteParticipantEvent;
 
 import org.greenrobot.eventbus.EventBus;

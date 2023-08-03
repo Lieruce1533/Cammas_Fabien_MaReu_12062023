@@ -1,4 +1,4 @@
-package com.artus.mareu.ui.meetings_list.ViewModels;
+package com.artus.mareus.ui.meetings_list.ViewModels;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
@@ -7,8 +7,8 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.artus.mareu.model.Meeting;
-import com.artus.mareu.repository.MareuRepository;
+import com.artus.mareus.model.Meeting;
+import com.artus.mareus.repository.MareuRepository;
 
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;

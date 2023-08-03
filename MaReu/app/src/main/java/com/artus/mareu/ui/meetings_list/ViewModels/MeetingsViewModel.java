@@ -1,10 +1,6 @@
 package com.artus.mareu.ui.meetings_list.ViewModels;
 
 
-import static org.greenrobot.eventbus.EventBus.TAG;
-
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 

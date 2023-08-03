@@ -1,14 +1,9 @@
 package com.artus.mareu.repository;
 
-import static org.greenrobot.eventbus.EventBus.TAG;
-
-import android.util.Log;
-
 import com.artus.mareu.DataSource.MareuApiService;
 import com.artus.mareu.model.Meeting;
 import com.artus.mareu.DataSource.MeetingApiService;
 
-import org.jetbrains.annotations.Nullable;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 
@@ -17,7 +12,6 @@ import java8.util.stream.StreamSupport;
 
 import java.util.ArrayList;
 import java.util.List;
-import java8.util.Optional;
 
 
 public class MareuRepository {
@@ -36,6 +30,9 @@ public class MareuRepository {
             instance = new MareuRepository(new MareuApiService());
         }
         return instance;
+    }
+    public static MareuRepository getNewInstance(){
+        return new MareuRepository(new MareuApiService());
     }
 
     public List<Meeting> getMeetings(String room, LocalDate date){
@@ -75,14 +72,13 @@ public class MareuRepository {
             LocalDateTime startDateTime = meeting.getDateTimeMeeting();
             LocalDateTime endDateTime = startDateTime.plusHours(1);
             // Assuming each meeting lasts for 1 hour and addition a gap of 5 min between 2 meetings
-
             // Check if the provided dateTime overlaps with the existing meeting
             if (dateTime.isBefore(endDateTime.plusMinutes(5)) && dateTime.isAfter(startDateTime.minusMinutes(65))){
                 occupiedRooms.add(meeting.getLocation());
             }
         }
         fullRoomList.removeAll(occupiedRooms);
-        Log.d(TAG, "getAvailableRooms: as been used");
+
 
         return fullRoomList;
     };

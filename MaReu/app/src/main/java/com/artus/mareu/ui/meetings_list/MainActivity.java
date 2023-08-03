@@ -1,4 +1,4 @@
-package com.artus.mareu.ui.meetings_list;
+package com.artus.mareus.ui.meetings_list;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import com.artus.mareu.R;
-import com.artus.mareu.databinding.ActivityMainBinding;
+import com.artus.mareus.R;
+import com.artus.mareus.databinding.ActivityMainBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 

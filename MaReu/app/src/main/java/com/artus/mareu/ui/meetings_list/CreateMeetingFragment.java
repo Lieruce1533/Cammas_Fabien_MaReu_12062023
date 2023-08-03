@@ -1,4 +1,4 @@
-package com.artus.mareu.ui.meetings_list;
+package com.artus.mareus.ui.meetings_list;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
@@ -41,15 +41,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.artus.mareu.R;
-import com.artus.mareu.databinding.FragmentCreateMeetingBinding;
-import com.artus.mareu.events.DeleteParticipantEvent;
-import com.artus.mareu.model.Meeting;
-import com.artus.mareu.repository.MareuRepository;
-import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
-import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
-import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
-import com.artus.mareu.utils.MareuViewModelFactory;
+import com.artus.mareus.R;
+import com.artus.mareus.databinding.FragmentCreateMeetingBinding;
+import com.artus.mareus.events.DeleteParticipantEvent;
+import com.artus.mareus.model.Meeting;
+import com.artus.mareus.repository.MareuRepository;
+import com.artus.mareus.ui.meetings_list.Pickers.TimePickerFragment;
+import com.artus.mareus.ui.meetings_list.Pickers.datePickerFragment;
+import com.artus.mareus.ui.meetings_list.ViewModels.CreateMeetingViewModel;
+import com.artus.mareus.utils.MareuViewModelFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

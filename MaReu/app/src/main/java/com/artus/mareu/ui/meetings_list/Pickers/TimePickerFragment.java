@@ -1,4 +1,4 @@
-package com.artus.mareu.ui.meetings_list.Pickers;
+package com.artus.mareus.ui.meetings_list.Pickers;
 
 import android.app.Dialog;
 import android.app.TimePickerDialog;

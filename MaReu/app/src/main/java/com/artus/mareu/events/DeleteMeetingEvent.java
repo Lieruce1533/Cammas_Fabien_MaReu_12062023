@@ -1,7 +1,7 @@
-package com.artus.mareu.events;
+package com.artus.mareus.events;
 
 
-import com.artus.mareu.model.Meeting;
+import com.artus.mareus.model.Meeting;
 
 /**
  * Event fired when a user deletes a Meeting

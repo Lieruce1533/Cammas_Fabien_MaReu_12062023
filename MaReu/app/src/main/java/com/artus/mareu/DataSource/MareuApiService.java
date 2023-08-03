@@ -1,6 +1,6 @@
-package com.artus.mareu.DataSource;
+package com.artus.mareus.DataSource;
 
-import com.artus.mareu.model.Meeting;
+import com.artus.mareus.model.Meeting;
 
 import java.util.List;
 
