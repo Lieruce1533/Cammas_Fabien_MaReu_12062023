@@ -39,9 +39,13 @@
         android:elevation="10dp"
         app:elevation="10dp"
         android:contentDescription="@string/create_meeting_button"
-        app:srcCompat="@drawable/baseline_add_circle_24"
+        android:src="@drawable/baseline_add_24"
+        app:fabSize="normal"
+        app:maxImageSize="48dp"
+        android:scaleType="center"
         app:backgroundTint="@color/ColorToolbar"
-        app:tint="@color/white"
+        android:tint="@color/colorCardViewClear"
+
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

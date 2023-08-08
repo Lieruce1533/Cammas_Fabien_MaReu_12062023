@@ -23,7 +23,6 @@
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:contentDescription="@string/bin"
-            android:onClick="dialog"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_delete_white_24dp">
