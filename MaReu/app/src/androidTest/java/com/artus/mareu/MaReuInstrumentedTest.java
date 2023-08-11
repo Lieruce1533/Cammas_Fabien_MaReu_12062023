@@ -10,17 +10,20 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.contrib.NavigationViewActions.navigateTo;
 import static androidx.test.espresso.matcher.RootMatchers.isDialog;
 import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
+import static androidx.test.espresso.matcher.ViewMatchers.hasChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.hasMinimumChildCount;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.artus.mareu.utils.CustomViewActions.getCountSpinnerItems;
 import static com.artus.mareu.utils.RecyclerViewItemCountAssertion.withItemCount;
 
-
-import static org.hamcrest.Matchers.instanceOf;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsString;
 import static java.util.EnumSet.allOf;
 
 import android.app.Activity;
@@ -159,9 +162,10 @@ public class MaReuInstrumentedTest {
     public void mareu_create_meeting_fragment_is_editable(){
         onView(ViewMatchers.withId(R.id.create_meeting_fab)).perform(click());
         Meeting meetingToAdd = new Meeting(9,"Test meeting",
-                LocalDateTime.of(2023,7,12,10,30),"froyo",
+                LocalDateTime.of(2023,7,12,10,30),"Froyo",
                 new ArrayList<>(Arrays.asList("edouard@caramail.fr", "gontrand@lycos.fr","charles-kévin@lycos.fr")));
         onView(ViewMatchers.withId(R.id.editTextTitle)).perform(typeText("Test meeting"), closeSoftKeyboard());
+        //check if text is right in the edit text
         //check date picker
         onView(ViewMatchers.withId(R.id.layoutDate)).perform(click());
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(2023, 7, 12));
@@ -174,12 +178,11 @@ public class MaReuInstrumentedTest {
         onView(ViewMatchers.withId(R.id.TextTime)).check(matches(withText("10:30")));
         //check spinner
         onView(ViewMatchers.withId(R.id.spinnerRoom)).check(matches(isDisplayed()));
-        //onView(ViewMatchers.withId(R.id.spinnerRoom)).check((6));
+        onView(ViewMatchers.withId(R.id.spinnerRoom)).perform((getCountSpinnerItems(is(6))));
         onView(ViewMatchers.withId(R.id.spinnerRoom)).perform(click());
-        //I'm stuck here
-        //onData(allOf(is(instanceOf(String.class)),is(COUNTRY).perform(click());
-        //onData(allOf(is(instanceOf(String.class)), is("froyo")).perform(click()));
-        //onData(ViewMatchers.withText("froyo")).perform(click());
+        onData(is("Froyo")).perform(click());
+        onView(withId(R.id.spinnerRoom)).check(matches(withSpinnerText(containsString("Froyo"))));
+
 
         //
 
