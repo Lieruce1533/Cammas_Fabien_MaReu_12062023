@@ -9,6 +9,9 @@ import com.artus.mareu.repository.MareuRepository;
 import org.threeten.bp.LocalDate;
 import java.util.List;
 
+/**
+ * View model for the meetingsFragment, it will be created by the MareuViewModelFactory
+ */
 public class MeetingsViewModel extends ViewModel {
 
     private MareuRepository mMareuRepository;
@@ -27,13 +30,18 @@ public class MeetingsViewModel extends ViewModel {
         return liveListMeeting;
     }
 
+    /**
+     * to populate and update our livedata
+     * @param room
+     * @param date
+     */
     public void loadLiveListMeeting(String room, LocalDate date) {
             List<Meeting> listMeeting = mMareuRepository.getMeetings(room, date);
             liveListMeeting.setValue(listMeeting);
     }
 
     /**
-     *
+     * to delete a meeting an update the livedata
      * @param meeting
      */
     public void deleteThisMeeting(Meeting meeting){

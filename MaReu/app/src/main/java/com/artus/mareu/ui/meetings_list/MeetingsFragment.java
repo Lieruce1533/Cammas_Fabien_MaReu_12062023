@@ -93,7 +93,6 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), listObserver);
         mRecyclerView = binding.recyclerViewMeetings;
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
-        ((MainActivity) requireActivity()).setSupportActionBar(toolbar);
         setHomeMenuProvider();
 
         return view;
@@ -132,6 +131,7 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         toolbar.setTitle("Ma Réu");
+        ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

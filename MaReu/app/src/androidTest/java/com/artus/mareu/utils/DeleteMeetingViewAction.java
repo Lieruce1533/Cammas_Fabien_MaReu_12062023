@@ -1,19 +1,20 @@
 package com.artus.mareu.utils;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
+
+import com.artus.mareu.R;
 import com.artus.mareu.databinding.ItemviewMeetingBinding;
 import org.hamcrest.Matcher;
 
 
 public class DeleteMeetingViewAction implements ViewAction {
 
-    ItemviewMeetingBinding binding;
 
-    public DeleteMeetingViewAction(ItemviewMeetingBinding binding) {
-        this.binding = binding;
-    }
 
     @Override
     public Matcher<View> getConstraints() {
@@ -27,10 +28,14 @@ public class DeleteMeetingViewAction implements ViewAction {
 
     @Override
     public void perform(UiController uiController, View view) {
-        View button = binding.itemListMeetingDeleteButton;
-        // Maybe check for null
-        button.performClick();
+        View deleteButton = view.findViewById(R.id.item_list_meeting_delete_button);
+        deleteButton.performClick();
+
     }
 
 
 }
+    /**
+     * Toast toast = Toast.makeText(binding.getRoot().getContext(), "You must fill all the fields", Toast.LENGTH_LONG);
+     *         toast.show();
+     */

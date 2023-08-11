@@ -25,16 +25,31 @@ public class MareuRepository {
         this.apiService = apiService;
     }
 
+    /**
+     * Implementation Of singleton pattern for the repository and the Apiservice.
+     * @return an instance of them.
+     */
     public static synchronized MareuRepository getInstance(){
         if (instance == null ){
             instance = new MareuRepository(new MareuApiService());
         }
         return instance;
     }
+
+    /**
+     * For test purposes, get a new instance each time. We are sure to work on a clean load of data.
+     * @return a new instance
+     */
     public static MareuRepository getNewInstance(){
         return new MareuRepository(new MareuApiService());
     }
 
+    /**
+     * to get our list of meeting with the possibility to filter by room or date
+     * @param room
+     * @param date
+     * @return a list of meetings
+     */
     public List<Meeting> getMeetings(String room, LocalDate date){
 
         if (room !=null) {
@@ -51,10 +66,18 @@ public class MareuRepository {
 
     }
 
+    /**
+     * to get the list of meetings rooms
+     * @return a list
+     */
     public List<String> getMeetingRooms() {
         return apiService.getMeetingRooms();
     }
 
+    /**
+     * to
+     * @param meeting
+     */
     public void deleteMeeting(Meeting meeting) { apiService.deleteMeeting(meeting);
     }
 

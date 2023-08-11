@@ -10,6 +10,9 @@ import androidx.fragment.app.DialogFragment;
 
 import org.threeten.bp.LocalTime;
 
+/**
+ * time picker dialog fragment to select a localTime to create a new meeting
+ */
 public class TimePickerFragment extends DialogFragment {
 
     @NonNull

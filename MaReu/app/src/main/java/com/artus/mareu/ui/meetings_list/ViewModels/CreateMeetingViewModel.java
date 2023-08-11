@@ -23,6 +23,10 @@ public class CreateMeetingViewModel extends ViewModel {
     private boolean display;
     private MutableLiveData<Boolean> visible = new MutableLiveData<>();
 
+    /**
+     * View model for the createMeetingFragment,it will be created by the MareuViewModelFactory
+     * @param mareuRepository
+     */
     public CreateMeetingViewModel(MareuRepository mareuRepository) {
         mMareuRepository = mareuRepository;
     }
@@ -33,8 +37,7 @@ public class CreateMeetingViewModel extends ViewModel {
     }
 
     /**
-     * changing the value of our boolean live data
-     *
+     * changing the value of our boolean live data     *
      * @return
      */
     public void displayRoomSpinner(boolean display) {
@@ -42,18 +45,33 @@ public class CreateMeetingViewModel extends ViewModel {
         Log.d(TAG, "displayRoomSpinner: is running ");
     }
 
-
+    /**
+     * to get the list of meetings
+     * @param room
+     * @param date
+     * @return a list of meetings
+     */
     public List<Meeting> fetchMeetings(String room, LocalDate date) {
         mMeetings = mMareuRepository.getMeetings(room, date);
         return mMeetings;
     }
 
+    /**
+     * to get a list of meeting rooms available depending on chosen date and time. used when creating a new meeting.
+     * @param mDateTime
+     * @param meetings
+     * @return a list of available rooms
+     */
     public List<String> fetchFilteredRooms(LocalDateTime mDateTime, List<Meeting> meetings) {
         availableRooms = mMareuRepository.getAvailableRooms(mDateTime, meetings);
         displayRoomSpinner(false);
         return availableRooms;
     }
 
+    /**
+     * to add a new meeting to our list of meetings.
+     * @param meeting
+     */
     public void addMeeting(Meeting meeting) {
         mMareuRepository.createMeeting(meeting);
     }

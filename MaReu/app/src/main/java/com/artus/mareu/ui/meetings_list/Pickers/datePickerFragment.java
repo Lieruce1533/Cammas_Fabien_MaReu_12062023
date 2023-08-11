@@ -10,6 +10,9 @@ import androidx.fragment.app.DialogFragment;
 
 import org.threeten.bp.LocalDate;
 
+/**
+ * date picker dialog fragment to pick a date when it is needed, filtering or creating a new meeting
+ */
 public class datePickerFragment extends DialogFragment {
 
     @NonNull

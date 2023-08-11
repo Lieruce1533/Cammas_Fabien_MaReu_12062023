@@ -4,6 +4,7 @@ package com.artus.mareu.ui.meetings_list;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -64,7 +65,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView mMeetingTitle;
-        ImageView mDeleteButton;
+        ImageButton mDeleteButton;
         TextView mMeetingDate;
         TextView mMeetingRoomName;
         TextView mMeetingTime;

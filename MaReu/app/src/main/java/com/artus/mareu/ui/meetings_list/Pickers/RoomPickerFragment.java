@@ -13,6 +13,9 @@ import com.artus.mareu.events.FilterByRoomEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
+/**
+ * room picker dialog fragment to choose a room for filtering the list of meetings
+ */
 public class RoomPickerFragment extends DialogFragment {
 
     private final String LIST_KEY="meetings room";

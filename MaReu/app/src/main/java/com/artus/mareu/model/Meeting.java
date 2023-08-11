@@ -6,6 +6,9 @@ import org.threeten.bp.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Model object representing a Neighbour
+ */
 public class Meeting {
 
     /** Identifier */

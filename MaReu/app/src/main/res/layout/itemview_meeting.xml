@@ -18,16 +18,18 @@
         android:layout_height="match_parent"
         >
 
-        <ImageView
+        <ImageButton
             android:id="@+id/item_list_meeting_delete_button"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:contentDescription="@string/bin"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="fitXY"
+            android:backgroundTint="@color/colorCardViewClear"
             android:src="@drawable/ic_delete_white_24dp">
 
-        </ImageView>
+        </ImageButton>
 
         <TextView
             android:id="@+id/item_list_meeting_room_presenter"

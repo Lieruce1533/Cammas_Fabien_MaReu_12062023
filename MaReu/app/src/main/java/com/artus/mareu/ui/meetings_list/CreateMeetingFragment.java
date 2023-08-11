@@ -111,17 +111,14 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
             }
         };
-        // This callback will only be called when MyFragment is at least Started.
-        OnBackPressedCallback callback = new OnBackPressedCallback(true ) {
-            @Override
-            public void handleOnBackPressed() {
-                closeFragment();
-                Log.d(TAG, "onBackPressed: is fired");
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), callback);
+        /**
+         * try to implement onBackPressed, at this time the icon is showing when the fragment is started but
+         * the back pressed handling is only working with an onMenuItemSelected, the HandleOnBackPressed()
+         * isn't working at all.
+         */
 
-        // The callback can be enabled or disabled here or in handleOnBackPressed()
+
+
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
         saveButton = binding.buttonAdd;
@@ -148,6 +145,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         EventBus.getDefault().unregister(this);
     }
     public void closeFragment(){
+
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStackImmediate();
     }
@@ -180,8 +178,10 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         }
     }
     /**
-     * management of the menu and the toolbar.
+     * management of the menu and the toolbar,
+     * should disappear when I figure out how to handle the bloody native back navigation.
      */
+
     private void setMenuProvider() {
         MenuHost menuHost = requireActivity();
         menuHost.addMenuProvider(new MenuProvider() {
@@ -192,10 +192,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
                 if (menuItem.getItemId() == android.R.id.home) {
-                    FragmentManager fm = getActivity().getSupportFragmentManager();
-                    Log.d(TAG, "onMenuItemSelected: fragment manager created");
-                    fm.popBackStackImmediate();
-                    Log.d(TAG, "onMenuItemSelected: fm pop fired");
+                    closeFragment();
                     return true;
                 }
                 return true;
@@ -209,10 +206,15 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         super.onViewCreated(view, savedInstanceState);
         toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
         toolbar.setTitle("New Meeting");
+
         /**
-        * this a native back button, I can manage to make it appear but it doesn't trigger anything
+        * this is a native back button, I can manage to make it appear but it doesn't trigger anything,
+        * is useless without the menuprovider and onMenuItemSelected.
         */
         ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((MainActivity) requireActivity()).getSupportActionBar().setHomeButtonEnabled(true);
+
+
         setMenuProvider();
         /**
          * handling the Button to add participant to the meeting
@@ -231,7 +233,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void setDatePicker() {
         mLayoutDate= binding.layoutDate;
         mTextDate = binding.TextDate;
-        mCalendar = binding.imageDate;
         mLayoutDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,7 +252,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void setTimePicker() {
         mLayoutTime = binding.layoutTime;
         mTextTime = binding.TextTime;
-        mClock = binding.imageTime;
         mLayoutTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -345,6 +345,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+
 
     }
 

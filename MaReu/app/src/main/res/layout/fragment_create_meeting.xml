@@ -10,7 +10,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:scrollbars="vertical"
+        android:scrollbarSize="12dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -66,8 +72,10 @@
                     android:background="@drawable/edit_text_bg"
                     android:ems="5"
                     android:padding="4dp"
+                    android:hint="@string/date_meeting"
                     android:textSize="@dimen/size_text_values"
                     android:textAlignment="textStart"
+                    android:textColorHint="@color/colorTextDark"
                     android:textColor="@color/colorTextDark"/>
 
                 <ImageView
@@ -83,10 +91,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="40dp"
-                app:layout_constraintEnd_toEndOf="@id/layoutDate"
-                app:layout_constraintStart_toStartOf="@id/layoutDate"
-                app:layout_constraintTop_toBottomOf="@id/layoutDate">
+
+
+                app:layout_constraintTop_toTopOf="@id/layoutDate"
+                app:layout_constraintEnd_toEndOf="@id/textInputLayoutTitle">
 
             <TextView
                 android:id="@+id/TextTime"
@@ -95,8 +103,10 @@
                 android:background="@drawable/edit_text_bg"
                 android:ems="5"
                 android:padding="4dp"
+                android:hint="@string/hour_meeting"
                 android:textSize="@dimen/size_text_values"
                 android:textAlignment="textStart"
+                android:textColorHint="@color/colorTextDark"
                 android:textColor="@color/colorTextDark"/>
 
             <ImageView

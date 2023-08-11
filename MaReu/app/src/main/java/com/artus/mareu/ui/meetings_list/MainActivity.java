@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity  {
         AndroidThreeTen.init(this);
         configureFab();
     }
+    @Override
+    public void onBackPressed() {
+        getSupportFragmentManager().popBackStackImmediate();
+    }
 
 
     private void configureFab(){

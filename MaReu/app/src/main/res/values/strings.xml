@@ -22,4 +22,6 @@
     <string name="image_remove_participant">Image remove participant</string>
     <string name="Input_participants">Participants</string>
     <string name="Date_presenter">Date :</string>
+    <string name="hour_meeting">Hour</string>
+    <string name="date_meeting">Date</string>
 </resources>

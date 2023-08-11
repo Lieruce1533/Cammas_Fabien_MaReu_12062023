@@ -10,7 +10,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style_land"
+        android:scrollbars="vertical"
+        android:scrollbarSize="12dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -68,8 +74,10 @@
                     android:background="@drawable/edit_text_bg"
                     android:ems="5"
                     android:padding="4dp"
+                    android:hint="@string/date_meeting"
                     android:textSize="@dimen/size_text_values"
                     android:textAlignment="textStart"
+                    android:textColorHint="@color/colorTextDark"
                     android:textColor="@color/colorTextDark"/>
 
                 <ImageView
@@ -96,8 +104,10 @@
                     android:background="@drawable/edit_text_bg"
                     android:ems="5"
                     android:padding="4dp"
+                    android:hint="@string/hour_meeting"
                     android:textSize="@dimen/size_text_values"
                     android:textAlignment="textStart"
+                    android:textColorHint="@color/colorTextDark"
                     android:textColor="@color/colorTextDark"/>
 
                 <ImageView
