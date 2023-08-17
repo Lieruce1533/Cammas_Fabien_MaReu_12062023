@@ -42,7 +42,6 @@ public class CreateMeetingViewModel extends ViewModel {
      */
     public void displayRoomSpinner(boolean display) {
         visible.setValue(!display);
-        Log.d(TAG, "displayRoomSpinner: is running ");
     }
 
     /**

@@ -54,7 +54,7 @@ import java.util.Arrays;
 public class MaReuInstrumentedTest {
 
 
-    private static int ITEM_COUNTS = 8;
+    private static final int ITEM_COUNTS = 8;
 
 
 

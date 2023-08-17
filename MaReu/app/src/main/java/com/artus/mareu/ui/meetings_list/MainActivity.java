@@ -4,11 +4,14 @@ import static org.greenrobot.eventbus.EventBus.TAG;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import com.artus.mareu.R;
 import com.artus.mareu.databinding.ActivityMainBinding;
+import com.artus.mareu.utils.ToolbarMenuManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -17,9 +20,11 @@ public class MainActivity extends AppCompatActivity  {
 
     private ActivityMainBinding binding;
     private FloatingActionButton fab;
+    private Toolbar mainToolbar;
     public ActivityMainBinding getBinding() {
         return binding;
     }
+
 
 
 
@@ -30,8 +35,8 @@ public class MainActivity extends AppCompatActivity  {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        setSupportActionBar(binding.toolbar.getRoot());
-
+        mainToolbar = binding.toolbar.getRoot();
+        setSupportActionBar(mainToolbar);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -42,11 +47,6 @@ public class MainActivity extends AppCompatActivity  {
         AndroidThreeTen.init(this);
         configureFab();
     }
-    @Override
-    public void onBackPressed() {
-        getSupportFragmentManager().popBackStackImmediate();
-    }
-
 
     private void configureFab(){
         fab = binding.createMeetingFab;

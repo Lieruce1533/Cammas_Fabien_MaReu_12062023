@@ -3,6 +3,7 @@ package com.artus.mareu.ui.meetings_list;
 import static org.greenrobot.eventbus.EventBus.TAG;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuHost;
@@ -11,6 +12,7 @@ import androidx.fragment.app.DialogFragment;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -50,6 +52,7 @@ import com.artus.mareu.ui.meetings_list.Pickers.TimePickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
 import com.artus.mareu.ui.meetings_list.ViewModels.CreateMeetingViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
+import com.artus.mareu.utils.ToolbarMenuManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -87,9 +90,11 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
 
 
+
     public static CreateMeetingFragment newInstance() {
         return new CreateMeetingFragment();
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -111,14 +116,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
             }
         };
-        /**
-         * try to implement onBackPressed, at this time the icon is showing when the fragment is started but
-         * the back pressed handling is only working with an onMenuItemSelected, the HandleOnBackPressed()
-         * isn't working at all.
-         */
-
-
-
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
         saveButton = binding.buttonAdd;
@@ -128,15 +125,39 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
                 saveNewMeeting();
             }
         });
+        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
         setDatePicker();
         setTimePicker();
+        setMenuProvider();
 
         return view;
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         /**
+         * handling the Button to add participant to the meeting
+         */
+        addParticipantButton = binding.AddParticipant;
+        addParticipantButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewParticipant();
+            }
+        });
+    }
+
+
     @Override
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -145,7 +166,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         EventBus.getDefault().unregister(this);
     }
     public void closeFragment(){
-
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStackImmediate();
     }
@@ -180,14 +200,14 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     /**
      * management of the menu and the toolbar,
      * should disappear when I figure out how to handle the bloody native back navigation.
-     */
 
+     */
     private void setMenuProvider() {
         MenuHost menuHost = requireActivity();
         menuHost.addMenuProvider(new MenuProvider() {
             @Override
             public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
-                menuInflater.inflate(R.menu.menu_toolbar_create, menu);
+
             }
             @Override
             public boolean onMenuItemSelected(@NonNull MenuItem menuItem) {
@@ -201,32 +221,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
 
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
-        toolbar.setTitle("New Meeting");
 
-        /**
-        * this is a native back button, I can manage to make it appear but it doesn't trigger anything,
-        * is useless without the menuprovider and onMenuItemSelected.
-        */
-        ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((MainActivity) requireActivity()).getSupportActionBar().setHomeButtonEnabled(true);
-
-
-        setMenuProvider();
-        /**
-         * handling the Button to add participant to the meeting
-         */
-        addParticipantButton = binding.AddParticipant;
-        addParticipantButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNewParticipant();
-            }
-        });
-    }
     /**
      * management of the date Input
      */
@@ -264,7 +259,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         mTime = LocalTime.of(hourOfDay, minute);
         mTextTime.setText(mTime.toString());
-        Log.d(TAG, "onTimeSet: ");
         checkFilledInputs();
     }
     /**
@@ -272,7 +266,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
      */
     public void checkFilledInputs() {
         if ((mTextDate.getText() != null) && (mTextTime.getText() != null)) {
-            Log.d(TAG, "checkFilledInputs: launched");
             UpdateSpinnerList();
         }
     }
@@ -296,7 +289,6 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         spinnerAdapter = new ArrayAdapter<>(requireContext(), R.layout.spinner_list, mRoom);
         spinnerAdapter.setDropDownViewResource(R.layout.spinner_list);
         mSpinner.setAdapter(spinnerAdapter);
-        Log.d(TAG, "UpdateSpinnerList: in fragment is fired ");
     }
 
     /**
@@ -337,7 +329,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
             meetingToCreate = new Meeting((refId +1), mEditTitleMeeting.getText().toString(),fetchDateTime(),selectedRoom,participants);
             mViewModel.addMeeting(meetingToCreate);
             closeFragment();
-            Log.d(TAG, "saveNewMeeting: as run");
+
         }
     }
 

@@ -2,6 +2,7 @@ package com.artus.mareu.ui.meetings_list;
 
 import static org.greenrobot.eventbus.EventBus.TAG;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuHost;
 import androidx.core.view.MenuProvider;
@@ -13,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
@@ -40,6 +42,7 @@ import com.artus.mareu.ui.meetings_list.Pickers.RoomPickerFragment;
 import com.artus.mareu.ui.meetings_list.Pickers.datePickerFragment;
 import com.artus.mareu.ui.meetings_list.ViewModels.MeetingsViewModel;
 import com.artus.mareu.utils.MareuViewModelFactory;
+import com.artus.mareu.utils.ToolbarMenuManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,6 +68,7 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
     private MenuHost menuHost;
     private FloatingActionButton fab;
     private Toolbar toolbar;
+    private ToolbarMenuManager toolbarManager;
 
 
     public static MeetingsFragment newInstance() {
@@ -92,11 +96,10 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         };
         mViewModel.getLiveListMeeting().observe(getViewLifecycleOwner(), listObserver);
         mRecyclerView = binding.recyclerViewMeetings;
-        toolbar = ((MainActivity) requireActivity()).getBinding().toolbar.getRoot();
         setHomeMenuProvider();
-
         return view;
     }
+
     private void setHomeMenuProvider(){
         menuHost = requireActivity();
         menuHost.addMenuProvider(new MenuProvider() {
@@ -130,9 +133,11 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        toolbar.setTitle("Ma Réu");
         ((MainActivity) requireActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     }
+
+
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         mDate = LocalDate.of(year, month+1, dayOfMonth);
