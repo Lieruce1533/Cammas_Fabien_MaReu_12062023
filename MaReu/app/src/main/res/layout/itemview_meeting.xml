@@ -27,7 +27,6 @@
             android:contentDescription="@string/bin"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-
             android:backgroundTint="@color/colorCardViewClear"
             android:src="@drawable/bin_delete_48">
 

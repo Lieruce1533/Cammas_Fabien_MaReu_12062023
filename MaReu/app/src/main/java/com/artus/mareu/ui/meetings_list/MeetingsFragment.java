@@ -99,6 +99,9 @@ public class MeetingsFragment extends Fragment implements DatePickerDialog.OnDat
         setHomeMenuProvider();
         return view;
     }
+    /**
+     * management of the menu in the toolbar, and menu actions
+     */
 
     private void setHomeMenuProvider(){
         menuHost = requireActivity();

@@ -1,0 +1,9 @@
+com.artus.mareu
+com.artus.mareu.DataSource
+com.artus.mareu.events
+com.artus.mareu.model
+com.artus.mareu.repository
+com.artus.mareu.ui.meetings_list
+com.artus.mareu.ui.meetings_list.Pickers
+com.artus.mareu.ui.meetings_list.ViewModels
+com.artus.mareu.utils

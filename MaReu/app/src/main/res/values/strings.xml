@@ -24,4 +24,11 @@
     <string name="Date_presenter">Date :</string>
     <string name="hour_meeting">Hour</string>
     <string name="date_meeting">Date</string>
+    <string name="calendar_image">Calendar image</string>
+    <string name="clock_image">Clock image</string>
+    <string name="meeting_rooms_spinner">meeting rooms presenter</string>
+    <string name="button_add_participant">Button to add participants</string>
+    <string name="list_of_participants">List of the participants you add</string>
+    <string name="button_new_meeting">button to create and save the new meeting</string>
+    <string name="toolbar">Toolbar</string>
 </resources>

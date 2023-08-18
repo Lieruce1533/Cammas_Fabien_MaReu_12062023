@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity  {
         configureFab();
     }
 
+    /**
+     * handling the Button to launch the create meeting fragment
+     */
     private void configureFab(){
         fab = binding.createMeetingFab;
         fab.setOnClickListener(new View.OnClickListener(){

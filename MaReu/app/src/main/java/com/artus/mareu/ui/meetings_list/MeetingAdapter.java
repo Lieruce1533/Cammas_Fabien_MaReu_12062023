@@ -49,6 +49,7 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingAdapter.ViewHold
             participantsBuilder.append(item).append("\n");
         }
         holder.mMeetingParticipants.setText(participantsBuilder.toString());
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

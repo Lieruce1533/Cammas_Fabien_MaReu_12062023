@@ -83,7 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    app:srcCompat="@drawable/baseline_calendar_month_24" />
+                    app:srcCompat="@drawable/baseline_calendar_month_24"
+                    android:contentDescription="@string/calendar_image"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -91,8 +92,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-
-
                 app:layout_constraintTop_toTopOf="@id/layoutDate"
                 app:layout_constraintEnd_toEndOf="@id/textInputLayoutTitle">
 
@@ -114,7 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                app:srcCompat="@drawable/baseline_access_time_28" />
+                app:srcCompat="@drawable/baseline_access_time_28"
+                android:contentDescription="@string/clock_image"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -129,7 +129,8 @@
                 android:popupBackground="@drawable/edit_text_bg"
                 android:popupElevation="6dp"
                 app:layout_constraintStart_toStartOf="@id/layoutDate"
-                app:layout_constraintTop_toBottomOf="@id/layoutTime">
+                app:layout_constraintTop_toBottomOf="@id/layoutTime"
+                android:contentDescription="@string/meeting_rooms_spinner">
 
             </Spinner>
 
@@ -142,7 +143,8 @@
                 android:src="@drawable/baseline_person_add_24"
                 app:layout_constraintEnd_toEndOf="@+id/textInputLayoutTitle"
                 app:layout_constraintStart_toEndOf="@id/textInputLayoutParticipants"
-                app:layout_constraintTop_toTopOf="@id/textInputLayoutParticipants" />
+                app:layout_constraintTop_toTopOf="@id/textInputLayoutParticipants"
+                android:contentDescription="@string/button_add_participant"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutParticipants"
@@ -173,7 +175,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:layoutManager="LinearLayoutManager" />
+                    app:layoutManager="LinearLayoutManager"
+                    android:contentDescription="@string/list_of_participants"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -191,7 +194,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textInputLayoutParticipants" />
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutParticipants"
+                android:contentDescription="@string/button_new_meeting"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
