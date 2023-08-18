@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.meetings_list.MainActivity"
+    tools:ignore="MissingClass">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style_land"
+        android:scrollbars="vertical"
+        android:scrollbarSize="12dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/create_meeting_bg"
+            android:elevation="8dp"
+            android:fillViewport="true"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:minHeight="40dp"
+                android:textColorHint="@color/colorTextDark"
+                app:hintTextColor="@color/colorTextDark"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="Title"
+                    android:minWidth="500dp"
+                    android:minHeight="40dp"
+                    android:padding="4dp"
+                    android:textSize="@dimen/size_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextDark"
+
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutDate"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@id/textInputLayoutTitle"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle">
+
+                <TextView
+                    android:id="@+id/TextDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/edit_text_bg"
+                    android:ems="5"
+                    android:padding="4dp"
+                    android:hint="@string/date_meeting"
+                    android:textSize="@dimen/size_text_values"
+                    android:textAlignment="textStart"
+                    android:textColorHint="@color/colorTextDark"
+                    android:textColor="@color/colorTextDark"/>
+
+                <ImageView
+                    android:id="@+id/image_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:srcCompat="@drawable/baseline_calendar_month_24" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layoutTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toEndOf="@id/layoutDate"
+                app:layout_constraintTop_toTopOf="@id/layoutDate">
+
+                <TextView
+                    android:id="@+id/TextTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:ems="5"
+                    android:padding="4dp"
+                    android:hint="@string/hour_meeting"
+                    android:textSize="@dimen/size_text_values"
+                    android:textAlignment="textStart"
+                    android:textColorHint="@color/colorTextDark"
+                    android:textColor="@color/colorTextDark"/>
+
+                <ImageView
+                    android:id="@+id/image_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:srcCompat="@drawable/baseline_access_time_28" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Spinner
+                android:id="@+id/spinnerRoom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/edit_text_bg"
+                android:dropDownWidth="match_parent"
+                android:minWidth="150dp"
+                android:popupBackground="@drawable/edit_text_bg"
+                android:popupElevation="6dp"
+                app:layout_constraintStart_toEndOf="@id/layoutTime"
+                app:layout_constraintTop_toTopOf="@id/layoutTime">
+
+            </Spinner>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_participants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="horizontal"
+                android:gravity="bottom"
+                app:layout_constraintStart_toStartOf="@id/layoutDate"
+                app:layout_constraintTop_toBottomOf="@id/layoutDate">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutParticipants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/colorTextDark"
+                app:hintTextColor="@color/colorTextDark"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/text_input_participant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edit_text_bg"
+                    android:hint="@string/Input_participants"
+                    android:inputType="textEmailAddress"
+                    android:minWidth="200dp"
+                    android:padding="4dp"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/size_text_values" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+                <ImageView
+                    android:id="@+id/Add_participant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/baseline_person_add_24" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_participants"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintStart_toEndOf="@id/layout_participants"
+                app:layout_constraintTop_toTopOf="@id/layout_participants" />
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_bg"
+                android:elevation="8dp"
+                android:shadowColor="@color/colorTextDark"
+                android:text="Save"
+                android:textColor="@color/colorFragment"
+                android:textStyle="bold"
+                android:textSize="@dimen/size_text_values"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/layout_participants"
+                app:layout_constraintStart_toStartOf="@id/layout_participants"
+                app:layout_constraintTop_toBottomOf="@id/layout_participants" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

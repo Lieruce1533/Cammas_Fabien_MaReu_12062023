@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item
+        android:id="@+id/item_filter"
+        android:icon="@drawable/baseline_filter_list_24"
+        android:title="@string/filters"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/filter_by_Date"
+                android:icon="@drawable/baseline_calendar_month_24"
+                android:title="@string/filter_by_date" />
+            <item
+                android:id="@+id/filter_by_room"
+                android:icon="@drawable/baseline_room_preferences_24"
+                android:title="@string/filter_by_room"/>
+            <item
+                android:id="@+id/item_remove_filter"
+                android:icon="@drawable/baseline_filter_list_off_24"
+                android:title="@string/remove_filter"/>
+        </menu>
+    </item>
+</menu>
