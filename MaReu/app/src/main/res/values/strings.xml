@@ -1,27 +1,3 @@
 <resources>
     <string name="app_name">MaRéu</string>
-    <string name="salle">Salle :</string>
-    <string name="quand">Hour :</string>
-    <string name="participants">Participants :</string>
-    <string name="bin">image of a bin for delete purpose</string>
-    <string name="filters">Filters</string>
-    <string name="filter_by_date">filter by date</string>
-    <string name="filter_by_room">filter by room</string>
-    <string name="ice_cream_sandwich">Ice Cream Sandwich</string>
-    <string name="jelly_bean">Jelly Bean</string>
-    <string name="kit_kat">Kit Kat</string>
-    <string name="lollipop">Lollipop</string>
-    <string name="honeycomb">Honeycomb</string>
-    <string name="gingerbread">Gingerbread</string>
-    <string name="froyo">Froyo</string>
-    <string name="eclair">Eclair</string>
-    <string name="donut">Donut</string>
-    <string name="cupcake">Cupcake</string>
-    <string name="remove_filter">remove filter</string>
-    <string name="create_meeting_button">create meeting button</string>
-    <string name="image_remove_participant">Image remove participant</string>
-    <string name="Input_participants">Participants</string>
-    <string name="Date_presenter">Date :</string>
-    <string name="hour_meeting">Hour</string>
-    <string name="date_meeting">Date</string>
 </resources>
