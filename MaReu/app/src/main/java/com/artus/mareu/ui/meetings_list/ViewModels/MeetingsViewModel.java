@@ -19,10 +19,17 @@ public class MeetingsViewModel extends ViewModel {
     private LocalDate date;
     private MutableLiveData<List<Meeting>> liveListMeeting = new MutableLiveData<List<Meeting>>();
 
+    /**
+     * View model for the MeetingsFragment,it will be created by the MareuViewModelFactory
+     * @param mareuRepository
+     */
     public MeetingsViewModel(MareuRepository mareuRepository) {
         mMareuRepository = mareuRepository;
     }
 
+    /**
+     * creation of our liveData
+     */
     public MutableLiveData<List<Meeting>> getLiveListMeeting() {
 
             loadLiveListMeeting(room, date);

@@ -159,7 +159,7 @@
                     android:background="@drawable/edit_text_bg"
                     android:hint="@string/Input_participants"
                     android:inputType="textEmailAddress"
-                    android:minWidth="200dp"
+                    android:minWidth="180dp"
                     android:padding="4dp"
                     android:textAlignment="center"
                     android:textSize="@dimen/size_text_values" />
@@ -183,7 +183,8 @@
                 android:layout_marginTop="10dp"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_constraintStart_toEndOf="@id/layout_participants"
-                app:layout_constraintTop_toTopOf="@id/layout_participants" />
+                app:layout_constraintTop_toTopOf="@id/layout_participants"
+                app:layout_constraintEnd_toEndOf="@id/spinnerRoom"/>
 
             <Button
                 android:id="@+id/button_add"

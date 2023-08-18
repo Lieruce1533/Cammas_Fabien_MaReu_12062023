@@ -75,12 +75,16 @@ public class MareuRepository {
     }
 
     /**
-     * to
+     * to delete a meeting from our meeting list
      * @param meeting
      */
     public void deleteMeeting(Meeting meeting) { apiService.deleteMeeting(meeting);
     }
 
+    /**
+     * to add a new meeting to our meeting list
+     * @param meeting
+     */
     public void createMeeting(Meeting meeting) {
         apiService.createMeeting(meeting);
     }

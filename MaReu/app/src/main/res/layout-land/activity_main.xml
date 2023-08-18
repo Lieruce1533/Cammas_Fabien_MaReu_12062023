@@ -33,14 +33,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:elevation="10dp"
         app:elevation="10dp"
         android:contentDescription="@string/create_meeting_button"
-        app:srcCompat="@drawable/baseline_add_circle_24"
+        android:src="@drawable/baseline_add_circle_24"
+        app:fabSize="normal"
+        app:maxImageSize="36dp"
+        android:scaleType="center"
         app:backgroundTint="@color/ColorToolbar"
-        app:tint="@color/white"
+        android:tint="@color/colorCardViewClear"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,6 +31,9 @@ public class CreateMeetingViewModel extends ViewModel {
         mMareuRepository = mareuRepository;
     }
 
+    /**
+     * creation of our liveData
+     */
     public MutableLiveData<Boolean> getVisible() {
         displayRoomSpinner(display);
         return visible;

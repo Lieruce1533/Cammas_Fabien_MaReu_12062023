@@ -69,15 +69,12 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
     public Spinner mSpinner;
     private MareuViewModelFactory mMaReuViewModelFactory;
     private List<String> mRoom;
-    private MareuRepository mMareuRepository;
     private LocalDateTime mDateTime;
     private LocalDate mDate;
     private LocalTime mTime;
     private EditText mEditTitleMeeting;
     private TextView mTextDate;
     private TextView mTextTime;
-    private ImageView mClock;
-    private ImageView mCalendar;
     private Toolbar toolbar;
     private ArrayAdapter<String> spinnerAdapter;
     private String selectedRoom;
@@ -119,6 +116,9 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         mViewModel.getVisible().observe(getViewLifecycleOwner(), visibilityObserver);
         mSpinner.setOnItemSelectedListener(this);
         saveButton = binding.buttonAdd;
+        /**
+         * handling the Button to create to the new meeting
+         */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +165,9 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+    /**
+     * handling the Button to return to the meeting fragment
+     */
     public void closeFragment(){
         FragmentManager fm = getActivity().getSupportFragmentManager();
         fm.popBackStackImmediate();
@@ -198,9 +201,7 @@ public class CreateMeetingFragment extends Fragment implements AdapterView.OnIte
         }
     }
     /**
-     * management of the menu and the toolbar,
-     * should disappear when I figure out how to handle the bloody native back navigation.
-
+     * management of the menu in the toolbar, and back button
      */
     private void setMenuProvider() {
         MenuHost menuHost = requireActivity();
