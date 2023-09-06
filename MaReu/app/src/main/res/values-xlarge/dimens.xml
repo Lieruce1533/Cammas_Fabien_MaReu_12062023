@@ -2,9 +2,9 @@
 <resources>
     <dimen name="spinner_dropdown_offset">70dp</dimen>
     <dimen name="size_text_presenter">18sp</dimen>
-    <dimen name="size_text_values">24sp</dimen>
-    <dimen name="size_title">32sp</dimen>
-    <dimen name="size_participants">14sp</dimen>
+    <dimen name="size_text_values">28sp</dimen>
+    <dimen name="size_title">38sp</dimen>
+    <dimen name="size_participants">16sp</dimen>
     <dimen name="padding_text_fields">4dp</dimen>
     <dimen name="top_margin_create_text_fields">40dp</dimen>
 

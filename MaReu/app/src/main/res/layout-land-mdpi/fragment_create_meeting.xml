@@ -18,7 +18,7 @@
         android:scrollbarThumbVertical="@drawable/custom_scroll_style_land"
         android:scrollbars="vertical"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="-82dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -34,10 +34,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
                 android:minHeight="40dp"
+                android:gravity="center_vertical"
                 android:textColorHint="@color/colorTextDark"
                 app:hintTextColor="@color/colorTextDark"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -64,9 +64,9 @@
                 android:id="@+id/layoutDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:gravity="center_vertical"
-                android:minHeight="40dp"
+                android:layout_marginTop="25dp"
+
+
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@id/textInputLayoutTitle"
                 app:layout_constraintTop_toBottomOf="@id/textInputLayoutTitle">
@@ -90,7 +90,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:contentDescription="@string/calendar_image"
-                    app:srcCompat="@drawable/baseline_calendar_month_land" />
+                    app:srcCompat="@drawable/baseline_calendar_month_land_small" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -98,8 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 app:layout_constraintStart_toEndOf="@id/layoutDate"
                 app:layout_constraintTop_toTopOf="@id/layoutDate">
 
@@ -122,7 +122,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
                     android:contentDescription="@string/clock_image"
-                    app:srcCompat="@drawable/baseline_access_time_land" />
+                    app:srcCompat="@drawable/baseline_access_time_28" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -146,7 +146,7 @@
                 android:id="@+id/layout_participants"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@id/layoutDate"
@@ -156,7 +156,7 @@
                     android:id="@+id/textInputLayoutParticipants"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minWidth="200dp"
+                    android:minWidth="150dp"
                     android:textColorHint="@color/colorTextDark"
                     app:hintTextColor="@color/colorTextDark">
 
@@ -178,8 +178,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
                     android:contentDescription="@string/button_add_participant"
-                    android:src="@drawable/baseline_person_add_land" />
+                    android:src="@drawable/baseline_person_add_land_small" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -208,6 +209,7 @@
                 android:textColor="@color/colorFragment"
                 android:textSize="@dimen/size_text_values"
                 android:textStyle="bold"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/layout_participants"
                 app:layout_constraintStart_toStartOf="@id/layout_participants"

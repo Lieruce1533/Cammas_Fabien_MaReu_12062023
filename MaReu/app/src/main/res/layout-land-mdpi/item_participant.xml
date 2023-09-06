@@ -9,7 +9,7 @@
         android:id="@+id/item_participant_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="300dp"
+        android:minWidth="150dp"
         android:textColor="@color/colorTextDark"
         android:textSize="@dimen/size_text_presenter"
         android:textAlignment="textStart"
@@ -21,6 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:src="@drawable/baseline_person_remove_land"
+        android:src="@drawable/baseline_person_remove_24"
         android:contentDescription="@string/image_remove_participant" />
 </LinearLayout>
